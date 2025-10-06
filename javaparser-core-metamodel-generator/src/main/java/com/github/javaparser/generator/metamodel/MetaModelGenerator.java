@@ -192,6 +192,8 @@ public class MetaModelGenerator extends AbstractGenerator {
         add(com.github.javaparser.ast.modules.ModuleProvidesDirective.class);
         add(com.github.javaparser.ast.modules.ModuleRequiresDirective.class);
         add(com.github.javaparser.ast.modules.ModuleUsesDirective.class);
+
+        add(org.mvel3.parser.ast.expr.InlineCastExpr.class);
     }};
 
     public MetaModelGenerator(SourceRoot sourceRoot) {
