@@ -37,14 +37,17 @@ import com.github.javaparser.printer.configuration.DefaultConfigurationOption;
 import com.github.javaparser.printer.configuration.DefaultPrinterConfiguration;
 import com.github.javaparser.printer.configuration.DefaultPrinterConfiguration.ConfigOption;
 import com.github.javaparser.printer.configuration.PrinterConfiguration;
+import com.github.javaparser.utils.MultiSourceRoot;
 import com.github.javaparser.utils.SourceRoot;
 
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import static com.github.javaparser.utils.Utils.decapitalize;
 
@@ -203,7 +206,7 @@ public class MetaModelGenerator extends AbstractGenerator {
         final ParserConfiguration parserConfiguration = new ParserConfiguration()
                 .setLanguageLevel(ParserConfiguration.LanguageLevel.RAW)
                 .setStoreTokens(false);
-        final SourceRoot sourceRoot = new SourceRoot(root, parserConfiguration);
+        final SourceRoot sourceRoot = buildSourceRoot(parserConfiguration, root, parseAdditionalRoots());
         PrinterConfiguration config = new DefaultPrinterConfiguration().addOption(new DefaultConfigurationOption(ConfigOption.END_OF_LINE_CHARACTER, ("\n")));
         Printer printer = new DefaultPrettyPrinter(config);
         sourceRoot.setPrinter(printer::print);
@@ -212,6 +215,39 @@ public class MetaModelGenerator extends AbstractGenerator {
         new MetaModelGenerator(sourceRoot).generate();
 
         sourceRoot.saveAll();
+    }
+
+    private static Map<String, Path> parseAdditionalRoots() {
+        String property = System.getProperty("javaparser.extraAstRoots", System.getenv("JAVAPARSER_EXTRA_AST_ROOTS"));
+        if (property == null || property.trim().isEmpty()) {
+            return new LinkedHashMap<>();
+        }
+        Map<String, Path> roots = new LinkedHashMap<>();
+        String[] entries = property.split(",");
+        for (String rawEntry : entries) {
+            String entry = rawEntry.trim();
+            if (entry.isEmpty()) {
+                continue;
+            }
+            int separator = entry.indexOf('=');
+            if (separator < 0) {
+                throw new IllegalArgumentException("Invalid extra AST root entry: " + entry + ". Expected format <package>=<path>.");
+            }
+            String pkg = entry.substring(0, separator).trim();
+            String path = entry.substring(separator + 1).trim();
+            if (pkg.isEmpty() || path.isEmpty()) {
+                throw new IllegalArgumentException("Invalid extra AST root entry: " + entry + ". Neither package nor path can be empty.");
+            }
+            roots.put(pkg, Paths.get(path));
+        }
+        return roots;
+    }
+
+    private static SourceRoot buildSourceRoot(ParserConfiguration parserConfiguration, Path root, Map<String, Path> additionalRoots) {
+        if (additionalRoots.isEmpty()) {
+            return new SourceRoot(root, parserConfiguration);
+        }
+        return new MultiSourceRoot(root, parserConfiguration, additionalRoots);
     }
 
     public void generate() throws Exception {

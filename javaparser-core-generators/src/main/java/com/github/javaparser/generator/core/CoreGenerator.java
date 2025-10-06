@@ -29,10 +29,13 @@ import com.github.javaparser.generator.core.other.TokenKindGenerator;
 import com.github.javaparser.generator.core.quality.NotNullGenerator;
 import com.github.javaparser.generator.core.visitor.*;
 import com.github.javaparser.utils.Log;
+import com.github.javaparser.utils.MultiSourceRoot;
 import com.github.javaparser.utils.SourceRoot;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static com.github.javaparser.ParserConfiguration.LanguageLevel.RAW;
 
@@ -55,7 +58,7 @@ public class CoreGenerator {
         }
         Log.setAdapter(new Log.StandardOutStandardErrorAdapter());
         final Path root = Paths.get(args[0], "..", "javaparser-core", "src", "main", "java");
-        final SourceRoot sourceRoot = new SourceRoot(root, parserConfiguration)
+        final SourceRoot sourceRoot = buildSourceRoot(parserConfiguration, root)
 //                .setPrinter(LexicalPreservingPrinter::print)
                 ;
         StaticJavaParser.setConfiguration(parserConfiguration);
@@ -68,6 +71,40 @@ public class CoreGenerator {
         new CoreGenerator().run(sourceRoot, generatedJavaCcSourceRoot);
 
         sourceRoot.saveAll();
+    }
+
+    private static SourceRoot buildSourceRoot(ParserConfiguration parserConfiguration, Path root) {
+        Map<String, Path> extras = parseAdditionalRoots();
+        if (extras.isEmpty()) {
+            return new SourceRoot(root, parserConfiguration);
+        }
+        return new MultiSourceRoot(root, parserConfiguration, extras);
+    }
+
+    private static Map<String, Path> parseAdditionalRoots() {
+        String property = System.getProperty("javaparser.extraAstRoots", System.getenv("JAVAPARSER_EXTRA_AST_ROOTS"));
+        if (property == null || property.trim().isEmpty()) {
+            return new LinkedHashMap<>();
+        }
+        Map<String, Path> extras = new LinkedHashMap<>();
+        String[] entries = property.split(",");
+        for (String raw : entries) {
+            String entry = raw.trim();
+            if (entry.isEmpty()) {
+                continue;
+            }
+            int separator = entry.indexOf('=');
+            if (separator < 0) {
+                throw new IllegalArgumentException("Invalid extra AST root entry: " + entry + ". Expected format <package>=<path>.");
+            }
+            String pkg = entry.substring(0, separator).trim();
+            String path = entry.substring(separator + 1).trim();
+            if (pkg.isEmpty() || path.isEmpty()) {
+                throw new IllegalArgumentException("Invalid extra AST root entry: " + entry + ". Neither package nor path can be empty.");
+            }
+            extras.put(pkg, Paths.get(path));
+        }
+        return extras;
     }
 
     private void run(SourceRoot sourceRoot, SourceRoot generatedJavaCcSourceRoot) throws Exception {
