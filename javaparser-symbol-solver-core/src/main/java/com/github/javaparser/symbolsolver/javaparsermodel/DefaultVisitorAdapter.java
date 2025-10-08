@@ -32,6 +32,7 @@ import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.type.*;
 import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.resolution.types.ResolvedType;
+import org.mvel3.parser.ast.expr.InlineCastExpr;
 
 public class DefaultVisitorAdapter implements GenericVisitor<ResolvedType, Boolean> {
     @Override
@@ -191,6 +192,11 @@ public class DefaultVisitorAdapter implements GenericVisitor<ResolvedType, Boole
 
     @Override
     public ResolvedType visit(CastExpr node, Boolean aBoolean) {
+        throw new UnsupportedOperationException(node.getClass().getCanonicalName());
+    }
+
+    @Override
+    public ResolvedType visit(InlineCastExpr node, Boolean aBoolean) {
         throw new UnsupportedOperationException(node.getClass().getCanonicalName());
     }
 

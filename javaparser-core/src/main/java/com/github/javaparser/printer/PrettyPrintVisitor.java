@@ -43,6 +43,7 @@ import com.github.javaparser.ast.type.*;
 import com.github.javaparser.ast.visitor.Visitable;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.printer.configuration.PrettyPrinterConfiguration;
+import org.mvel3.parser.ast.expr.InlineCastExpr;
 
 /**
  * Outputs the AST as formatted Java source code.
@@ -676,6 +677,16 @@ public class PrettyPrintVisitor implements VoidVisitor<Void> {
 
     @Override
     public void visit(final CastExpr n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        printer.print("(");
+        n.getType().accept(this, arg);
+        printer.print(") ");
+        n.getExpression().accept(this, arg);
+    }
+
+    @Override
+    public void visit(final InlineCastExpr n, final Void arg) {
         printOrphanCommentsBeforeThisChildNode(n);
         printComment(n.getComment(), arg);
         printer.print("(");

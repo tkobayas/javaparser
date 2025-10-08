@@ -48,6 +48,7 @@ import com.github.javaparser.printer.configuration.DefaultPrinterConfiguration.C
 import com.github.javaparser.printer.configuration.ImportOrderingStrategy;
 import com.github.javaparser.printer.configuration.PrinterConfiguration;
 import com.github.javaparser.printer.configuration.imports.DefaultImportOrderingStrategy;
+import org.mvel3.parser.ast.expr.InlineCastExpr;
 
 /**
  * Outputs the AST as formatted Java source code.
@@ -666,6 +667,16 @@ public class DefaultPrettyPrinterVisitor implements VoidVisitor<Void> {
 
     @Override
     public void visit(final CastExpr n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        printer.print("(");
+        n.getType().accept(this, arg);
+        printer.print(") ");
+        n.getExpression().accept(this, arg);
+    }
+
+    @Override
+    public void visit(final InlineCastExpr n, final Void arg) {
         printOrphanCommentsBeforeThisChildNode(n);
         printComment(n.getComment(), arg);
         printer.print("(");

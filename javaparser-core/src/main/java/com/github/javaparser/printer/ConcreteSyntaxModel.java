@@ -33,6 +33,8 @@ import com.github.javaparser.metamodel.JavaParserMetaModel;
 import com.github.javaparser.printer.concretesyntaxmodel.CsmConditional;
 import com.github.javaparser.printer.concretesyntaxmodel.CsmElement;
 import com.github.javaparser.printer.concretesyntaxmodel.CsmMix;
+import org.mvel3.parser.ast.expr.InlineCastExpr;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import static com.github.javaparser.GeneratedJavaParserConstants.*;
@@ -141,6 +143,7 @@ public class ConcreteSyntaxModel {
         concreteSyntaxModelByClass.put(TypeExpr.class, sequence(comment(), child(ObservableProperty.TYPE)));
         concreteSyntaxModelByClass.put(UnaryExpr.class, sequence(conditional(ObservableProperty.PREFIX, FLAG, attribute(ObservableProperty.OPERATOR)), child(ObservableProperty.EXPRESSION), conditional(ObservableProperty.POSTFIX, FLAG, attribute(ObservableProperty.OPERATOR))));
         concreteSyntaxModelByClass.put(VariableDeclarationExpr.class, sequence(comment(), list(ObservableProperty.ANNOTATIONS, space(), none(), space()), modifiers(), child(ObservableProperty.MAXIMUM_COMMON_TYPE), space(), list(ObservableProperty.VARIABLES, sequence(comma(), space()))));
+        concreteSyntaxModelByClass.put(InlineCastExpr.class, sequence(comment(), token(LPAREN), child(ObservableProperty.TYPE), token(RPAREN), space(), child(ObservableProperty.EXPRESSION)));
         // /
         // / Statements
         // /
