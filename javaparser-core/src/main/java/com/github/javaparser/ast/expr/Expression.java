@@ -35,6 +35,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import static com.github.javaparser.utils.CodeGenerationUtils.f;
+import org.mvel3.parser.ast.expr.InlineCastExpr;
 
 /**
  * A base class for all expressions.
@@ -876,5 +877,20 @@ public abstract class Expression extends Node {
         Expression scope = (Expression) ((NodeWithOptionalScope) this).getScope().get();
         NodeWithTypeArguments nwta = (NodeWithTypeArguments) this;
         return scope.elidesTypeArguments() && (!nwta.getTypeArguments().isPresent() || nwta.isUsingDiamondOperator());
+    }
+
+    public boolean isInlineCastExpr() {
+        return false;
+    }
+
+    public InlineCastExpr asInlineCastExpr() {
+        throw new IllegalStateException(f("%s is not InlineCastExpr, it is %s", this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<InlineCastExpr> toInlineCastExpr() {
+        return Optional.empty();
+    }
+
+    public void ifInlineCastExpr(Consumer<InlineCastExpr> action) {
     }
 }

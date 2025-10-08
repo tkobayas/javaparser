@@ -1303,10 +1303,10 @@ public class DefaultPrettyPrinterVisitor implements VoidVisitor<Void> {
         printer.println(" {");
         printer.indent();
         if (n.getEntries().isNonEmpty()) {
-            final // Either we hit the constant amount limit in the configurations, or...
-            boolean // Either we hit the constant amount limit in the configurations, or...
-            alignVertically = // any of the constants has a comment.
-            n.getEntries().size() > getOption(ConfigOption.MAX_ENUM_CONSTANTS_TO_ALIGN_HORIZONTALLY).get().asInteger() || n.getEntries().stream().anyMatch(e -> e.getComment().isPresent());
+            final boolean // Either we hit the constant amount limit in the configurations, or...
+            // Either we hit the constant amount limit in the configurations, or...
+            // any of the constants has a comment.
+            alignVertically = n.getEntries().size() > getOption(ConfigOption.MAX_ENUM_CONSTANTS_TO_ALIGN_HORIZONTALLY).get().asInteger() || n.getEntries().stream().anyMatch(e -> e.getComment().isPresent());
             printer.println();
             for (final Iterator<EnumConstantDeclaration> i = n.getEntries().iterator(); i.hasNext(); ) {
                 final EnumConstantDeclaration e = i.next();
