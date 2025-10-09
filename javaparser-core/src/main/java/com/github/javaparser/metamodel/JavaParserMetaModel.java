@@ -21,7 +21,6 @@
 package com.github.javaparser.metamodel;
 
 import com.github.javaparser.ast.Generated;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -291,6 +290,8 @@ public final class JavaParserMetaModel {
         moduleRequiresDirectiveMetaModel.getConstructorParameters().add(moduleRequiresDirectiveMetaModel.modifiersPropertyMetaModel);
         moduleRequiresDirectiveMetaModel.getConstructorParameters().add(moduleRequiresDirectiveMetaModel.namePropertyMetaModel);
         moduleUsesDirectiveMetaModel.getConstructorParameters().add(moduleUsesDirectiveMetaModel.namePropertyMetaModel);
+        inlineCastExprMetaModel.getConstructorParameters().add(inlineCastExprMetaModel.typePropertyMetaModel);
+        inlineCastExprMetaModel.getConstructorParameters().add(inlineCastExprMetaModel.expressionPropertyMetaModel);
     }
 
     public static List<BaseNodeMetaModel> getNodeMetaModels() {
@@ -344,6 +345,7 @@ public final class JavaParserMetaModel {
         nodeMetaModels.add(ifStmtMetaModel);
         nodeMetaModels.add(importDeclarationMetaModel);
         nodeMetaModels.add(initializerDeclarationMetaModel);
+        nodeMetaModels.add(inlineCastExprMetaModel);
         nodeMetaModels.add(instanceOfExprMetaModel);
         nodeMetaModels.add(integerLiteralExprMetaModel);
         nodeMetaModels.add(intersectionTypeMetaModel);
@@ -845,6 +847,10 @@ public final class JavaParserMetaModel {
         moduleRequiresDirectiveMetaModel.getDeclaredPropertyMetaModels().add(moduleRequiresDirectiveMetaModel.namePropertyMetaModel);
         moduleUsesDirectiveMetaModel.namePropertyMetaModel = new PropertyMetaModel(moduleUsesDirectiveMetaModel, "name", com.github.javaparser.ast.expr.Name.class, Optional.of(nameMetaModel), false, false, false, false);
         moduleUsesDirectiveMetaModel.getDeclaredPropertyMetaModels().add(moduleUsesDirectiveMetaModel.namePropertyMetaModel);
+        inlineCastExprMetaModel.expressionPropertyMetaModel = new PropertyMetaModel(inlineCastExprMetaModel, "expression", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, false, false);
+        inlineCastExprMetaModel.getDeclaredPropertyMetaModels().add(inlineCastExprMetaModel.expressionPropertyMetaModel);
+        inlineCastExprMetaModel.typePropertyMetaModel = new PropertyMetaModel(inlineCastExprMetaModel, "type", com.github.javaparser.ast.type.Type.class, Optional.of(typeMetaModel), false, false, false, false);
+        inlineCastExprMetaModel.getDeclaredPropertyMetaModels().add(inlineCastExprMetaModel.typePropertyMetaModel);
     }
 
     public static Optional<BaseNodeMetaModel> getNodeMetaModel(Class<?> c) {
@@ -1191,6 +1197,9 @@ public final class JavaParserMetaModel {
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final ModuleUsesDirectiveMetaModel moduleUsesDirectiveMetaModel = new ModuleUsesDirectiveMetaModel(Optional.of(moduleDirectiveMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final InlineCastExprMetaModel inlineCastExprMetaModel = new InlineCastExprMetaModel(Optional.of(expressionMetaModel));
 
     static {
         initializeNodeMetaModels();

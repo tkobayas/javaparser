@@ -21,7 +21,7 @@
 package com.github.javaparser.metamodel;
 
 import java.util.Optional;
-import com.github.javaparser.ast.stmt.ExplicitConstructorInvocationStmt;
+import org.mvel3.parser.ast.expr.InlineCastExpr;
 import com.github.javaparser.ast.Generated;
 
 /**
@@ -34,20 +34,14 @@ import com.github.javaparser.ast.Generated;
  * For this reason, any changes made directly to this file will be overwritten the next time generators are run.
  */
 @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
-public class ExplicitConstructorInvocationStmtMetaModel extends StatementMetaModel {
+public class InlineCastExprMetaModel extends ExpressionMetaModel {
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
-    ExplicitConstructorInvocationStmtMetaModel(Optional<BaseNodeMetaModel> superBaseNodeMetaModel) {
-        super(superBaseNodeMetaModel, ExplicitConstructorInvocationStmt.class, "ExplicitConstructorInvocationStmt", "com.github.javaparser.ast.stmt", false, false);
+    InlineCastExprMetaModel(Optional<BaseNodeMetaModel> superBaseNodeMetaModel) {
+        super(superBaseNodeMetaModel, InlineCastExpr.class, "InlineCastExpr", "org.mvel3.parser.ast.expr", false, false);
     }
-
-    public PropertyMetaModel argumentsPropertyMetaModel;
 
     public PropertyMetaModel expressionPropertyMetaModel;
 
-    public PropertyMetaModel isThisPropertyMetaModel;
-
-    public PropertyMetaModel typeArgumentsPropertyMetaModel;
-
-    public PropertyMetaModel usingDiamondOperatorPropertyMetaModel;
+    public PropertyMetaModel typePropertyMetaModel;
 }
