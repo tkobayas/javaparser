@@ -37,6 +37,7 @@ import org.mvel3.parser.ast.expr.BigDecimalLiteralExpr;
 import org.mvel3.parser.ast.expr.BigIntegerLiteralExpr;
 import org.mvel3.parser.ast.expr.DrlNameExpr;
 import org.mvel3.parser.ast.expr.DrlxExpression;
+import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.InlineCastExpr;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -103,9 +104,9 @@ public class ConcreteSyntaxModel {
         // FIXME: we should introduce a derived property
         // FIXME: we should introduce a derived property
         // FIXME: we should introduce a derived property
-        concreteSyntaxModelByClass.// FIXME: we should introduce a derived property
-        put(// list(ObservableProperty.EXTRA_ARRAY_LEVELS),
-        VariableDeclarator.class, sequence(comment(), child(ObservableProperty.NAME), conditional(ObservableProperty.INITIALIZER, IS_PRESENT, sequence(space(), token(GeneratedJavaParserConstants.ASSIGN), space(), child(ObservableProperty.INITIALIZER)))));
+        // FIXME: we should introduce a derived property
+        concreteSyntaxModelByClass.// list(ObservableProperty.EXTRA_ARRAY_LEVELS),
+        put(VariableDeclarator.class, sequence(comment(), child(ObservableProperty.NAME), conditional(ObservableProperty.INITIALIZER, IS_PRESENT, sequence(space(), token(GeneratedJavaParserConstants.ASSIGN), space(), child(ObservableProperty.INITIALIZER)))));
         // /
         // / Expressions
         // /
@@ -152,6 +153,7 @@ public class ConcreteSyntaxModel {
         concreteSyntaxModelByClass.put(BigIntegerLiteralExpr.class, sequence(comment(), attribute(ObservableProperty.VALUE), string(GeneratedJavaParserConstants.IDENTIFIER, "I")));
         concreteSyntaxModelByClass.put(DrlNameExpr.class, sequence(comment(), child(ObservableProperty.NAME)));
         concreteSyntaxModelByClass.put(DrlxExpression.class, sequence(comment(), child(ObservableProperty.BIND), space(), string(GeneratedJavaParserConstants.COLON), space(), child(ObservableProperty.EXPR)));
+        concreteSyntaxModelByClass.put(FullyQualifiedInlineCastExpr.class, sequence(comment(), child(ObservableProperty.EXPRESSION), string(GeneratedJavaParserConstants.IDENTIFIER, "#"), child(ObservableProperty.TYPE), string(GeneratedJavaParserConstants.IDENTIFIER, "#")));
         // /
         // / Statements
         // /

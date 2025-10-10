@@ -41,6 +41,7 @@ import org.mvel3.parser.ast.expr.BigDecimalLiteralExpr;
 import org.mvel3.parser.ast.expr.BigIntegerLiteralExpr;
 import org.mvel3.parser.ast.expr.DrlNameExpr;
 import org.mvel3.parser.ast.expr.DrlxExpression;
+import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 
 /**
  * This visitor can be used to save time when some specific nodes needs
@@ -1386,6 +1387,19 @@ public class ModifierVisitor<A> implements GenericVisitor<Visitable, A> {
             return null;
         n.setBind(bind);
         n.setExpr(expr);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final FullyQualifiedInlineCastExpr n, final A arg) {
+        Expression expression = (Expression) n.getExpression().accept(this, arg);
+        Type type = (Type) n.getType().accept(this, arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        if (expression == null || type == null)
+            return null;
+        n.setExpression(expression);
+        n.setType(type);
         n.setComment(comment);
         return n;
     }

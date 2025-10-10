@@ -35,6 +35,7 @@ import org.mvel3.parser.ast.expr.BigDecimalLiteralExpr;
 import org.mvel3.parser.ast.expr.BigIntegerLiteralExpr;
 import org.mvel3.parser.ast.expr.DrlNameExpr;
 import org.mvel3.parser.ast.expr.DrlxExpression;
+import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 
 public class NoCommentEqualsVisitor implements GenericVisitor<Boolean, Visitable> {
 
@@ -1206,6 +1207,16 @@ public class NoCommentEqualsVisitor implements GenericVisitor<Boolean, Visitable
         if (!nodeEquals(n.getBind(), n2.getBind()))
             return false;
         if (!nodeEquals(n.getExpr(), n2.getExpr()))
+            return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final FullyQualifiedInlineCastExpr n, final Visitable arg) {
+        final FullyQualifiedInlineCastExpr n2 = (FullyQualifiedInlineCastExpr) arg;
+        if (!nodeEquals(n.getExpression(), n2.getExpression()))
+            return false;
+        if (!nodeEquals(n.getType(), n2.getType()))
             return false;
         return true;
     }

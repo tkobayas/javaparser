@@ -25,7 +25,6 @@ import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import org.mvel3.parser.ast.visitor.DrlGenericVisitor;
 import org.mvel3.parser.ast.visitor.DrlVoidVisitor;
-
 import java.util.Optional;
 import java.util.function.Consumer;
 import com.github.javaparser.ast.observer.ObservableProperty;
@@ -72,24 +71,30 @@ public class DrlxExpression extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isDrlxExpression() {
         return true;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public DrlxExpression asDrlxExpression() {
         return this;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<DrlxExpression> toDrlxExpression() {
         return Optional.of(this);
     }
 
+    @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifDrlxExpression(Consumer<DrlxExpression> action) {
         action.accept(this);
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public DrlxExpression setBind(final SimpleName bind) {
         assertNotNull(bind);
         if (bind == this.bind) {
@@ -103,6 +108,7 @@ public class DrlxExpression extends Expression {
         return this;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public DrlxExpression setExpr(final Expression expr) {
         assertNotNull(expr);
         if (expr == this.expr) {
@@ -117,6 +123,7 @@ public class DrlxExpression extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.ReplaceMethodGenerator")
     public boolean replace(Node node, Node replacementNode) {
         if (node == null) {
             return false;
@@ -133,11 +140,13 @@ public class DrlxExpression extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.CloneGenerator")
     public DrlxExpression clone() {
         return (DrlxExpression) accept(new CloneVisitor(), null);
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.GetMetaModelGenerator")
     public DrlxExpressionMetaModel getMetaModel() {
         return JavaParserMetaModel.drlxExpressionMetaModel;
     }
@@ -145,6 +154,7 @@ public class DrlxExpression extends Expression {
     /**
      * This constructor is used by the parser and is considered private.
      */
+    @Generated("com.github.javaparser.generator.core.node.MainConstructorGenerator")
     public DrlxExpression(TokenRange tokenRange, SimpleName bind, Expression expr) {
         super(tokenRange);
         setBind(bind);

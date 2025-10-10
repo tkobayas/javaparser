@@ -14,6 +14,7 @@
 package org.mvel3.parser.ast.expr;
 
 import com.github.javaparser.TokenRange;
+import com.github.javaparser.ast.AllFieldsConstructor;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.observer.ObservableProperty;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
@@ -22,6 +23,14 @@ import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import org.mvel3.parser.ast.visitor.DrlGenericVisitor;
 import org.mvel3.parser.ast.visitor.DrlVoidVisitor;
+import java.util.Optional;
+import java.util.function.Consumer;
+import static com.github.javaparser.utils.Utils.assertNotNull;
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.visitor.CloneVisitor;
+import com.github.javaparser.metamodel.FullyQualifiedInlineCastExprMetaModel;
+import com.github.javaparser.metamodel.JavaParserMetaModel;
+import com.github.javaparser.ast.Generated;
 
 public class FullyQualifiedInlineCastExpr extends Expression {
 
@@ -30,57 +39,114 @@ public class FullyQualifiedInlineCastExpr extends Expression {
 
     private Type type;
 
+    @AllFieldsConstructor
     public FullyQualifiedInlineCastExpr(Expression expression, ClassOrInterfaceType type) {
         this(null, expression, type);
     }
 
+    /**
+     * This constructor is used by the parser and is considered private.
+     */
+    @Generated("com.github.javaparser.generator.core.node.MainConstructorGenerator")
     public FullyQualifiedInlineCastExpr(TokenRange tokenRange, Expression expression, Type type) {
         super(tokenRange);
         setExpression(expression);
         setType(type);
+        customInitialization();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public Type getType() {
         return type;
     }
 
-    public FullyQualifiedInlineCastExpr setType(Type type) {
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
+    public FullyQualifiedInlineCastExpr setType(final Type type) {
+        assertNotNull(type);
         if (type == this.type) {
             return this;
         }
-        notifyPropertyChange(ObservableProperty.EXPRESSION, this.type, type);
-        if (this.type != null) {
+        notifyPropertyChange(ObservableProperty.TYPE, this.type, type);
+        if (this.type != null)
             this.type.setParentNode(null);
-        }
         this.type = type;
         setAsParentNodeOf(type);
         return this;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public Expression getExpression() {
         return expression;
     }
 
-    public FullyQualifiedInlineCastExpr setExpression(Expression scope) {
-        if (scope == this.expression) {
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
+    public FullyQualifiedInlineCastExpr setExpression(final Expression expression) {
+        assertNotNull(expression);
+        if (expression == this.expression) {
             return this;
         }
-        notifyPropertyChange(ObservableProperty.SCOPE, this.expression, scope);
-        if (this.expression != null) {
+        notifyPropertyChange(ObservableProperty.EXPRESSION, this.expression, expression);
+        if (this.expression != null)
             this.expression.setParentNode(null);
-        }
-        this.expression = scope;
-        setAsParentNodeOf(scope);
+        this.expression = expression;
+        setAsParentNodeOf(expression);
         return this;
     }
 
     @Override
-    public <R, A> R accept(GenericVisitor<R, A> v, A arg) {
-        return ((DrlGenericVisitor<R, A>) v).visit(this, arg);
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <R, A> R accept(final GenericVisitor<R, A> v, final A arg) {
+        return v.visit(this, arg);
     }
 
     @Override
-    public <A> void accept(VoidVisitor<A> v, A arg) {
-        ((DrlVoidVisitor<A>) v).visit(this, arg);
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <A> void accept(final VoidVisitor<A> v, final A arg) {
+        v.visit(this, arg);
+    }
+
+    @Override
+    public boolean isFullyQualifiedInlineCastExpr() {
+        return true;
+    }
+
+    @Override
+    public FullyQualifiedInlineCastExpr asFullyQualifiedInlineCastExpr() {
+        return this;
+    }
+
+    @Override
+    public Optional<FullyQualifiedInlineCastExpr> toFullyQualifiedInlineCastExpr() {
+        return Optional.of(this);
+    }
+
+    public void ifFullyQualifiedInlineCastExpr(Consumer<FullyQualifiedInlineCastExpr> action) {
+        action.accept(this);
+    }
+
+    @Override
+    public boolean replace(Node node, Node replacementNode) {
+        if (node == null) {
+            return false;
+        }
+        if (node == expression) {
+            setExpression((Expression) replacementNode);
+            return true;
+        }
+        if (node == type) {
+            setType((Type) replacementNode);
+            return true;
+        }
+        return super.replace(node, replacementNode);
+    }
+
+    @Override
+    public FullyQualifiedInlineCastExpr clone() {
+        return (FullyQualifiedInlineCastExpr) accept(new CloneVisitor(), null);
+    }
+
+    @Override
+    public FullyQualifiedInlineCastExprMetaModel getMetaModel() {
+        return JavaParserMetaModel.fullyQualifiedInlineCastExprMetaModel;
     }
 }
