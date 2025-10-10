@@ -44,6 +44,8 @@ import com.github.javaparser.ast.visitor.Visitable;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.printer.configuration.PrettyPrinterConfiguration;
 import org.mvel3.parser.ast.expr.BigDecimalLiteralExpr;
+import org.mvel3.parser.ast.expr.BigDecimalLiteralExpr;
+import org.mvel3.parser.ast.expr.BigIntegerLiteralExpr;
 import org.mvel3.parser.ast.expr.InlineCastExpr;
 
 /**
@@ -776,6 +778,14 @@ public class PrettyPrintVisitor implements VoidVisitor<Void> {
         printComment(n.getComment(), arg);
         printer.print(n.getValue());
         printer.print("B");
+    }
+
+    @Override
+    public void visit(final BigIntegerLiteralExpr n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        printer.print(n.getValue());
+        printer.print("I");
     }
 
     @Override

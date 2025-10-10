@@ -26,6 +26,7 @@ import static com.github.javaparser.ast.expr.Expression.IS_NOT_ENCLOSED_EXPR;
 import static com.github.javaparser.resolution.Navigator.demandParentNode;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -63,15 +64,18 @@ import com.github.javaparser.utils.Log;
 import com.github.javaparser.utils.Pair;
 import com.google.common.collect.ImmutableList;
 import org.mvel3.parser.ast.expr.BigDecimalLiteralExpr;
+import org.mvel3.parser.ast.expr.BigIntegerLiteralExpr;
 import org.mvel3.parser.ast.expr.InlineCastExpr;
 
 public class TypeExtractor extends DefaultVisitorAdapter {
 
     private static final String JAVA_LANG_STRING = String.class.getCanonicalName();
     private static final String JAVA_MATH_BIG_DECIMAL = BigDecimal.class.getCanonicalName();
+    private static final String JAVA_MATH_BIG_INTEGER = BigInteger.class.getCanonicalName();
 
     private final ResolvedType stringReferenceType;
     private final ResolvedType bigDecimalReferenceType;
+    private final ResolvedType bigIntegerReferenceType;
 
     private TypeSolver typeSolver;
     private JavaParserFacade facade;
@@ -84,6 +88,7 @@ public class TypeExtractor extends DefaultVisitorAdapter {
         // consider a LazyType to avoid having to systematically declare a ReflectionTypeSolver
         stringReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_LANG_STRING)));
         bigDecimalReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_MATH_BIG_DECIMAL)));
+        bigIntegerReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_MATH_BIG_INTEGER)));
     }
 
     @Override
@@ -318,6 +323,11 @@ public class TypeExtractor extends DefaultVisitorAdapter {
             return ResolvedPrimitiveType.FLOAT;
         }
         return ResolvedPrimitiveType.DOUBLE;
+    }
+
+    @Override
+    public ResolvedType visit(BigIntegerLiteralExpr node, Boolean solveLambdas) {
+        return bigIntegerReferenceType;
     }
 
     @Override

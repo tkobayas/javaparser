@@ -34,6 +34,7 @@ import com.github.javaparser.printer.concretesyntaxmodel.CsmConditional;
 import com.github.javaparser.printer.concretesyntaxmodel.CsmElement;
 import com.github.javaparser.printer.concretesyntaxmodel.CsmMix;
 import org.mvel3.parser.ast.expr.BigDecimalLiteralExpr;
+import org.mvel3.parser.ast.expr.BigIntegerLiteralExpr;
 import org.mvel3.parser.ast.expr.InlineCastExpr;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -146,6 +147,7 @@ public class ConcreteSyntaxModel {
         // Mvel3 nodes
         concreteSyntaxModelByClass.put(InlineCastExpr.class, sequence(comment(), child(ObservableProperty.EXPRESSION), string(GeneratedJavaParserConstants.IDENTIFIER, "#"), child(ObservableProperty.TYPE), string(GeneratedJavaParserConstants.IDENTIFIER, "#")));
         concreteSyntaxModelByClass.put(BigDecimalLiteralExpr.class, sequence(comment(), attribute(ObservableProperty.VALUE), string(GeneratedJavaParserConstants.IDENTIFIER, "B")));
+        concreteSyntaxModelByClass.put(BigIntegerLiteralExpr.class, sequence(comment(), attribute(ObservableProperty.VALUE), string(GeneratedJavaParserConstants.IDENTIFIER, "I")));
         // /
         // / Statements
         // /
