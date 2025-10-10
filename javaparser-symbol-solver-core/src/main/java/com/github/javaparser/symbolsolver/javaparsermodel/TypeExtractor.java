@@ -68,6 +68,7 @@ import org.mvel3.parser.ast.expr.BigIntegerLiteralExpr;
 import org.mvel3.parser.ast.expr.DrlNameExpr;
 import org.mvel3.parser.ast.expr.DrlxExpression;
 import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
+import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.InlineCastExpr;
 
 public class TypeExtractor extends DefaultVisitorAdapter {
@@ -187,6 +188,11 @@ public class TypeExtractor extends DefaultVisitorAdapter {
     @Override
     public ResolvedType visit(FullyQualifiedInlineCastExpr node, Boolean solveLambdas) {
         return facade.convertToUsage(node.getType(), JavaParserFactory.getContext(node, typeSolver));
+    }
+
+    @Override
+    public ResolvedType visit(HalfBinaryExpr node, Boolean solveLambdas) {
+        return ResolvedPrimitiveType.BOOLEAN; // HalfBinaryExpr is always comparing operators
     }
 
     @Override
