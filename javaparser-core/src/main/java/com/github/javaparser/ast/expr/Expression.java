@@ -44,6 +44,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A base class for all expressions.
@@ -1020,33 +1024,101 @@ public abstract class Expression extends Node {
     public void ifHalfBinaryExpr(Consumer<HalfBinaryExpr> action) {
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isHalfPointFreeExpr() {
         return false;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public HalfPointFreeExpr asHalfPointFreeExpr() {
         throw new IllegalStateException(f("%s is not HalfPointFreeExpr, it is %s", this, this.getClass().getSimpleName()));
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<HalfPointFreeExpr> toHalfPointFreeExpr() {
         return Optional.empty();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifHalfPointFreeExpr(Consumer<HalfPointFreeExpr> action) {
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isPointFreeExpr() {
         return false;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public PointFreeExpr asPointFreeExpr() {
         throw new IllegalStateException(f("%s is not PointFreeExpr, it is %s", this, this.getClass().getSimpleName()));
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<PointFreeExpr> toPointFreeExpr() {
         return Optional.empty();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifPointFreeExpr(Consumer<PointFreeExpr> action) {
+    }
+
+    public boolean isListCreationLiteralExpressionElement() {
+        return false;
+    }
+
+    public ListCreationLiteralExpressionElement asListCreationLiteralExpressionElement() {
+        throw new IllegalStateException(f("%s is not ListCreationLiteralExpressionElement, it is %s", this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<ListCreationLiteralExpressionElement> toListCreationLiteralExpressionElement() {
+        return Optional.empty();
+    }
+
+    public void ifListCreationLiteralExpressionElement(Consumer<ListCreationLiteralExpressionElement> action) {
+    }
+
+    public boolean isListCreationLiteralExpression() {
+        return false;
+    }
+
+    public ListCreationLiteralExpression asListCreationLiteralExpression() {
+        throw new IllegalStateException(f("%s is not ListCreationLiteralExpression, it is %s", this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<ListCreationLiteralExpression> toListCreationLiteralExpression() {
+        return Optional.empty();
+    }
+
+    public void ifListCreationLiteralExpression(Consumer<ListCreationLiteralExpression> action) {
+    }
+
+    public boolean isMapCreationLiteralExpressionKeyValuePair() {
+        return false;
+    }
+
+    public MapCreationLiteralExpressionKeyValuePair asMapCreationLiteralExpressionKeyValuePair() {
+        throw new IllegalStateException(f("%s is not MapCreationLiteralExpressionKeyValuePair, it is %s", this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<MapCreationLiteralExpressionKeyValuePair> toMapCreationLiteralExpressionKeyValuePair() {
+        return Optional.empty();
+    }
+
+    public void ifMapCreationLiteralExpressionKeyValuePair(Consumer<MapCreationLiteralExpressionKeyValuePair> action) {
+    }
+
+    public boolean isMapCreationLiteralExpression() {
+        return false;
+    }
+
+    public MapCreationLiteralExpression asMapCreationLiteralExpression() {
+        throw new IllegalStateException(f("%s is not MapCreationLiteralExpression, it is %s", this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<MapCreationLiteralExpression> toMapCreationLiteralExpression() {
+        return Optional.empty();
+    }
+
+    public void ifMapCreationLiteralExpression(Consumer<MapCreationLiteralExpression> action) {
     }
 }

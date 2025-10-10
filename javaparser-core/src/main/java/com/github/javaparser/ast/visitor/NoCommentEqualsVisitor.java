@@ -39,6 +39,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 public class NoCommentEqualsVisitor implements GenericVisitor<Boolean, Visitable> {
 
@@ -1272,6 +1276,40 @@ public class NoCommentEqualsVisitor implements GenericVisitor<Boolean, Visitable
         if (!nodeEquals(n.getOperator(), n2.getOperator()))
             return false;
         if (!nodesEquals(n.getRight(), n2.getRight()))
+            return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final ListCreationLiteralExpressionElement n, final Visitable arg) {
+        final ListCreationLiteralExpressionElement n2 = (ListCreationLiteralExpressionElement) arg;
+        if (!nodeEquals(n.getValue(), n2.getValue()))
+            return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final ListCreationLiteralExpression n, final Visitable arg) {
+        final ListCreationLiteralExpression n2 = (ListCreationLiteralExpression) arg;
+        if (!nodesEquals(n.getExpressions(), n2.getExpressions()))
+            return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final MapCreationLiteralExpressionKeyValuePair n, final Visitable arg) {
+        final MapCreationLiteralExpressionKeyValuePair n2 = (MapCreationLiteralExpressionKeyValuePair) arg;
+        if (!nodeEquals(n.getKey(), n2.getKey()))
+            return false;
+        if (!nodeEquals(n.getValue(), n2.getValue()))
+            return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final MapCreationLiteralExpression n, final Visitable arg) {
+        final MapCreationLiteralExpression n2 = (MapCreationLiteralExpression) arg;
+        if (!nodesEquals(n.getExpressions(), n2.getExpressions()))
             return false;
         return true;
     }

@@ -28,6 +28,7 @@ import static com.github.javaparser.resolution.Navigator.demandParentNode;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -73,16 +74,26 @@ import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.InlineCastExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 
 public class TypeExtractor extends DefaultVisitorAdapter {
 
     private static final String JAVA_LANG_STRING = String.class.getCanonicalName();
     private static final String JAVA_MATH_BIG_DECIMAL = BigDecimal.class.getCanonicalName();
     private static final String JAVA_MATH_BIG_INTEGER = BigInteger.class.getCanonicalName();
+    private static final String JAVA_UTIL_LIST = List.class.getCanonicalName();
+    private static final String JAVA_UTIL_MAP = Map.class.getCanonicalName();
+    private static final String JAVA_UTIL_MAP_ENTRY = Map.Entry.class.getCanonicalName();
 
     private final ResolvedType stringReferenceType;
     private final ResolvedType bigDecimalReferenceType;
     private final ResolvedType bigIntegerReferenceType;
+    private final ResolvedType listReferenceType;
+    private final ResolvedType mapReferenceType;
+    private final ResolvedType mapEntryReferenceType;
 
     private TypeSolver typeSolver;
     private JavaParserFacade facade;
@@ -96,6 +107,9 @@ public class TypeExtractor extends DefaultVisitorAdapter {
         stringReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_LANG_STRING)));
         bigDecimalReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_MATH_BIG_DECIMAL)));
         bigIntegerReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_MATH_BIG_INTEGER)));
+        listReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_UTIL_LIST)));
+        mapReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_UTIL_MAP)));
+        mapEntryReferenceType = new LazyType(v -> new ReferenceTypeImpl(typeSolver.solveType(JAVA_UTIL_MAP_ENTRY)));
     }
 
     @Override
@@ -206,6 +220,26 @@ public class TypeExtractor extends DefaultVisitorAdapter {
     @Override
     public ResolvedType visit(PointFreeExpr node, Boolean solveLambdas) {
         return ResolvedPrimitiveType.BOOLEAN;
+    }
+
+    @Override
+    public ResolvedType visit(ListCreationLiteralExpression node, Boolean solveLambdas) {
+        return listReferenceType;
+    }
+
+    @Override
+    public ResolvedType visit(ListCreationLiteralExpressionElement node, Boolean solveLambdas) {
+        return node.getValue().accept(this, solveLambdas);
+    }
+
+    @Override
+    public ResolvedType visit(MapCreationLiteralExpression node, Boolean solveLambdas) {
+        return mapReferenceType;
+    }
+
+    @Override
+    public ResolvedType visit(MapCreationLiteralExpressionKeyValuePair node, Boolean solveLambdas) {
+        return mapEntryReferenceType;
     }
 
     @Override

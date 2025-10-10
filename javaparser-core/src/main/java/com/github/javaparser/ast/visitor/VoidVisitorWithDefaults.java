@@ -38,6 +38,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that returns nothing, and has default methods that are used when a specific visit method is not
@@ -597,6 +601,26 @@ public abstract class VoidVisitorWithDefaults<A> implements VoidVisitor<A> {
 
     @Override
     public void visit(final PointFreeExpr n, final A arg) {
+        defaultAction(n, arg);
+    }
+
+    @Override
+    public void visit(final ListCreationLiteralExpressionElement n, final A arg) {
+        defaultAction(n, arg);
+    }
+
+    @Override
+    public void visit(final ListCreationLiteralExpression n, final A arg) {
+        defaultAction(n, arg);
+    }
+
+    @Override
+    public void visit(final MapCreationLiteralExpressionKeyValuePair n, final A arg) {
+        defaultAction(n, arg);
+    }
+
+    @Override
+    public void visit(final MapCreationLiteralExpression n, final A arg) {
         defaultAction(n, arg);
     }
 }

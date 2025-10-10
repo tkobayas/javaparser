@@ -42,6 +42,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that has a return value of {@link List List&lt;R&gt;}, and has a default implementation for all its visit
@@ -2433,6 +2437,79 @@ public abstract class GenericListVisitorAdapter<R, A> implements GenericVisitor<
         }
         {
             tmp = n.getRight().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        if (n.getComment().isPresent()) {
+            tmp = n.getComment().get().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        return result;
+    }
+
+    @Override
+    public List<R> visit(final ListCreationLiteralExpressionElement n, final A arg) {
+        List<R> result = new ArrayList<>();
+        List<R> tmp;
+        {
+            tmp = n.getValue().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        if (n.getComment().isPresent()) {
+            tmp = n.getComment().get().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        return result;
+    }
+
+    @Override
+    public List<R> visit(final ListCreationLiteralExpression n, final A arg) {
+        List<R> result = new ArrayList<>();
+        List<R> tmp;
+        {
+            tmp = n.getExpressions().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        if (n.getComment().isPresent()) {
+            tmp = n.getComment().get().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        return result;
+    }
+
+    @Override
+    public List<R> visit(final MapCreationLiteralExpressionKeyValuePair n, final A arg) {
+        List<R> result = new ArrayList<>();
+        List<R> tmp;
+        {
+            tmp = n.getKey().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        {
+            tmp = n.getValue().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        if (n.getComment().isPresent()) {
+            tmp = n.getComment().get().accept(this, arg);
+            if (tmp != null)
+                result.addAll(tmp);
+        }
+        return result;
+    }
+
+    @Override
+    public List<R> visit(final MapCreationLiteralExpression n, final A arg) {
+        List<R> result = new ArrayList<>();
+        List<R> tmp;
+        {
+            tmp = n.getExpressions().accept(this, arg);
             if (tmp != null)
                 result.addAll(tmp);
         }

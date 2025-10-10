@@ -38,6 +38,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that calculates deep node equality by comparing all properties and child nodes of the node.
@@ -594,6 +598,26 @@ public class ObjectIdentityEqualsVisitor implements GenericVisitor<Boolean, Visi
 
     @Override
     public Boolean visit(final PointFreeExpr n, final Visitable arg) {
+        return n == arg;
+    }
+
+    @Override
+    public Boolean visit(final ListCreationLiteralExpressionElement n, final Visitable arg) {
+        return n == arg;
+    }
+
+    @Override
+    public Boolean visit(final ListCreationLiteralExpression n, final Visitable arg) {
+        return n == arg;
+    }
+
+    @Override
+    public Boolean visit(final MapCreationLiteralExpressionKeyValuePair n, final Visitable arg) {
+        return n == arg;
+    }
+
+    @Override
+    public Boolean visit(final MapCreationLiteralExpression n, final Visitable arg) {
         return n == arg;
     }
 }

@@ -18,32 +18,109 @@
 package org.mvel3.parser.ast.expr;
 
 import com.github.javaparser.TokenRange;
+import com.github.javaparser.ast.AllFieldsConstructor;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import org.mvel3.parser.ast.visitor.DrlGenericVisitor;
 import org.mvel3.parser.ast.visitor.DrlVoidVisitor;
+import java.util.Optional;
+import java.util.function.Consumer;
+import com.github.javaparser.ast.observer.ObservableProperty;
+import static com.github.javaparser.utils.Utils.assertNotNull;
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.visitor.CloneVisitor;
+import com.github.javaparser.metamodel.ListCreationLiteralExpressionElementMetaModel;
+import com.github.javaparser.metamodel.JavaParserMetaModel;
+import com.github.javaparser.ast.Generated;
 
 public class ListCreationLiteralExpressionElement extends Expression {
 
-    private final Expression value;
+    private Expression value;
 
+    @AllFieldsConstructor
+    public ListCreationLiteralExpressionElement(Expression value) {
+        this(null, value);
+    }
+
+    /**
+     * This constructor is used by the parser and is considered private.
+     */
+    @Generated("com.github.javaparser.generator.core.node.MainConstructorGenerator")
     public ListCreationLiteralExpressionElement(TokenRange tokenRange, Expression value) {
         super(tokenRange);
-        this.value = value;
+        setValue(value);
+        customInitialization();
     }
 
     @Override
-    public <R, A> R accept(GenericVisitor<R, A> v, A arg) {
-        return ((DrlGenericVisitor<R, A>) v).visit(this, arg);
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <R, A> R accept(final GenericVisitor<R, A> v, final A arg) {
+        return v.visit(this, arg);
     }
 
     @Override
-    public <A> void accept(VoidVisitor<A> v, A arg) {
-        ((DrlVoidVisitor<A>) v).visit(this, arg);
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <A> void accept(final VoidVisitor<A> v, final A arg) {
+        v.visit(this, arg);
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public Expression getValue() {
         return value;
+    }
+
+    @Override
+    public boolean isListCreationLiteralExpressionElement() {
+        return true;
+    }
+
+    @Override
+    public ListCreationLiteralExpressionElement asListCreationLiteralExpressionElement() {
+        return this;
+    }
+
+    @Override
+    public Optional<ListCreationLiteralExpressionElement> toListCreationLiteralExpressionElement() {
+        return Optional.of(this);
+    }
+
+    public void ifListCreationLiteralExpressionElement(Consumer<ListCreationLiteralExpressionElement> action) {
+        action.accept(this);
+    }
+
+    public ListCreationLiteralExpressionElement setValue(final Expression value) {
+        assertNotNull(value);
+        if (value == this.value) {
+            return this;
+        }
+        notifyPropertyChange(ObservableProperty.VALUE, this.value, value);
+        if (this.value != null)
+            this.value.setParentNode(null);
+        this.value = value;
+        setAsParentNodeOf(value);
+        return this;
+    }
+
+    @Override
+    public boolean replace(Node node, Node replacementNode) {
+        if (node == null) {
+            return false;
+        }
+        if (node == value) {
+            setValue((Expression) replacementNode);
+            return true;
+        }
+        return super.replace(node, replacementNode);
+    }
+
+    @Override
+    public ListCreationLiteralExpressionElement clone() {
+        return (ListCreationLiteralExpressionElement) accept(new CloneVisitor(), null);
+    }
+
+    @Override
+    public ListCreationLiteralExpressionElementMetaModel getMetaModel() {
+        return JavaParserMetaModel.listCreationLiteralExpressionElementMetaModel;
     }
 }

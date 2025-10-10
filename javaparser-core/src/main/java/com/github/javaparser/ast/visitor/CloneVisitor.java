@@ -40,6 +40,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that clones (copies) a node and all its children.
@@ -1407,6 +1411,51 @@ public class CloneVisitor implements GenericVisitor<Visitable, Object> {
         NodeList<Expression> right = cloneList(n.getRight(), arg);
         Comment comment = cloneNode(n.getComment(), arg);
         PointFreeExpr r = new PointFreeExpr(n.getTokenRange().orElse(null), left, right, operator, n.isNegated(), arg1, arg2, arg3, arg4);
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
+
+    @Override
+    public Visitable visit(final ListCreationLiteralExpressionElement n, final Object arg) {
+        Expression value = cloneNode(n.getValue(), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        ListCreationLiteralExpressionElement r = new ListCreationLiteralExpressionElement(n.getTokenRange().orElse(null), value);
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
+
+    @Override
+    public Visitable visit(final ListCreationLiteralExpression n, final Object arg) {
+        NodeList<Expression> expressions = cloneList(n.getExpressions(), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        ListCreationLiteralExpression r = new ListCreationLiteralExpression(n.getTokenRange().orElse(null), expressions);
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
+
+    @Override
+    public Visitable visit(final MapCreationLiteralExpressionKeyValuePair n, final Object arg) {
+        Expression key = cloneNode(n.getKey(), arg);
+        Expression value = cloneNode(n.getValue(), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        MapCreationLiteralExpressionKeyValuePair r = new MapCreationLiteralExpressionKeyValuePair(n.getTokenRange().orElse(null), key, value);
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
+
+    @Override
+    public Visitable visit(final MapCreationLiteralExpression n, final Object arg) {
+        NodeList<Expression> expressions = cloneList(n.getExpressions(), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        MapCreationLiteralExpression r = new MapCreationLiteralExpression(n.getTokenRange().orElse(null), expressions);
         r.setComment(comment);
         n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
         copyData(n, r);

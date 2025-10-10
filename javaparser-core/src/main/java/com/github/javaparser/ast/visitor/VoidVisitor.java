@@ -38,6 +38,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that does not return anything.
@@ -263,4 +267,12 @@ public interface VoidVisitor<A> {
     void visit(HalfPointFreeExpr n, A arg);
 
     void visit(PointFreeExpr n, A arg);
+
+    void visit(ListCreationLiteralExpressionElement n, A arg);
+
+    void visit(ListCreationLiteralExpression n, A arg);
+
+    void visit(MapCreationLiteralExpressionKeyValuePair n, A arg);
+
+    void visit(MapCreationLiteralExpression n, A arg);
 }

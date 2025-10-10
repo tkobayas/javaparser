@@ -45,6 +45,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * This visitor can be used to save time when some specific nodes needs
@@ -1458,6 +1462,48 @@ public class ModifierVisitor<A> implements GenericVisitor<Visitable, A> {
         n.setLeft(left);
         n.setOperator(operator);
         n.setRight(right);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final ListCreationLiteralExpressionElement n, final A arg) {
+        Expression value = (Expression) n.getValue().accept(this, arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        if (value == null)
+            return null;
+        n.setValue(value);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final ListCreationLiteralExpression n, final A arg) {
+        NodeList<Expression> expressions = modifyList(n.getExpressions(), arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        n.setExpressions(expressions);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final MapCreationLiteralExpressionKeyValuePair n, final A arg) {
+        Expression key = (Expression) n.getKey().accept(this, arg);
+        Expression value = (Expression) n.getValue().accept(this, arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        if (key == null || value == null)
+            return null;
+        n.setKey(key);
+        n.setValue(value);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final MapCreationLiteralExpression n, final A arg) {
+        NodeList<Expression> expressions = modifyList(n.getExpressions(), arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        n.setExpressions(expressions);
         n.setComment(comment);
         return n;
     }

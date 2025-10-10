@@ -317,6 +317,11 @@ public final class JavaParserMetaModel {
         halfPointFreeExprMetaModel.getConstructorParameters().add(halfPointFreeExprMetaModel.arg2PropertyMetaModel);
         halfPointFreeExprMetaModel.getConstructorParameters().add(halfPointFreeExprMetaModel.arg3PropertyMetaModel);
         halfPointFreeExprMetaModel.getConstructorParameters().add(halfPointFreeExprMetaModel.arg4PropertyMetaModel);
+        listCreationLiteralExpressionMetaModel.getConstructorParameters().add(listCreationLiteralExpressionMetaModel.expressionsPropertyMetaModel);
+        listCreationLiteralExpressionElementMetaModel.getConstructorParameters().add(listCreationLiteralExpressionElementMetaModel.valuePropertyMetaModel);
+        mapCreationLiteralExpressionMetaModel.getConstructorParameters().add(mapCreationLiteralExpressionMetaModel.expressionsPropertyMetaModel);
+        mapCreationLiteralExpressionKeyValuePairMetaModel.getConstructorParameters().add(mapCreationLiteralExpressionKeyValuePairMetaModel.keyPropertyMetaModel);
+        mapCreationLiteralExpressionKeyValuePairMetaModel.getConstructorParameters().add(mapCreationLiteralExpressionKeyValuePairMetaModel.valuePropertyMetaModel);
     }
 
     public static List<BaseNodeMetaModel> getNodeMetaModels() {
@@ -385,11 +390,15 @@ public final class JavaParserMetaModel {
         nodeMetaModels.add(labeledStmtMetaModel);
         nodeMetaModels.add(lambdaExprMetaModel);
         nodeMetaModels.add(lineCommentMetaModel);
+        nodeMetaModels.add(listCreationLiteralExpressionElementMetaModel);
+        nodeMetaModels.add(listCreationLiteralExpressionMetaModel);
         nodeMetaModels.add(literalExprMetaModel);
         nodeMetaModels.add(literalStringValueExprMetaModel);
         nodeMetaModels.add(localClassDeclarationStmtMetaModel);
         nodeMetaModels.add(localRecordDeclarationStmtMetaModel);
         nodeMetaModels.add(longLiteralExprMetaModel);
+        nodeMetaModels.add(mapCreationLiteralExpressionKeyValuePairMetaModel);
+        nodeMetaModels.add(mapCreationLiteralExpressionMetaModel);
         nodeMetaModels.add(markerAnnotationExprMetaModel);
         nodeMetaModels.add(memberValuePairMetaModel);
         nodeMetaModels.add(methodCallExprMetaModel);
@@ -928,6 +937,16 @@ public final class JavaParserMetaModel {
         halfPointFreeExprMetaModel.getDeclaredPropertyMetaModels().add(halfPointFreeExprMetaModel.operatorPropertyMetaModel);
         halfPointFreeExprMetaModel.rightPropertyMetaModel = new PropertyMetaModel(halfPointFreeExprMetaModel, "right", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, true, false);
         halfPointFreeExprMetaModel.getDeclaredPropertyMetaModels().add(halfPointFreeExprMetaModel.rightPropertyMetaModel);
+        listCreationLiteralExpressionMetaModel.expressionsPropertyMetaModel = new PropertyMetaModel(listCreationLiteralExpressionMetaModel, "expressions", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, true, false);
+        listCreationLiteralExpressionMetaModel.getDeclaredPropertyMetaModels().add(listCreationLiteralExpressionMetaModel.expressionsPropertyMetaModel);
+        listCreationLiteralExpressionElementMetaModel.valuePropertyMetaModel = new PropertyMetaModel(listCreationLiteralExpressionElementMetaModel, "value", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, false, false);
+        listCreationLiteralExpressionElementMetaModel.getDeclaredPropertyMetaModels().add(listCreationLiteralExpressionElementMetaModel.valuePropertyMetaModel);
+        mapCreationLiteralExpressionMetaModel.expressionsPropertyMetaModel = new PropertyMetaModel(mapCreationLiteralExpressionMetaModel, "expressions", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, true, false);
+        mapCreationLiteralExpressionMetaModel.getDeclaredPropertyMetaModels().add(mapCreationLiteralExpressionMetaModel.expressionsPropertyMetaModel);
+        mapCreationLiteralExpressionKeyValuePairMetaModel.keyPropertyMetaModel = new PropertyMetaModel(mapCreationLiteralExpressionKeyValuePairMetaModel, "key", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, false, false);
+        mapCreationLiteralExpressionKeyValuePairMetaModel.getDeclaredPropertyMetaModels().add(mapCreationLiteralExpressionKeyValuePairMetaModel.keyPropertyMetaModel);
+        mapCreationLiteralExpressionKeyValuePairMetaModel.valuePropertyMetaModel = new PropertyMetaModel(mapCreationLiteralExpressionKeyValuePairMetaModel, "value", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, false, false);
+        mapCreationLiteralExpressionKeyValuePairMetaModel.getDeclaredPropertyMetaModels().add(mapCreationLiteralExpressionKeyValuePairMetaModel.valuePropertyMetaModel);
     }
 
     public static Optional<BaseNodeMetaModel> getNodeMetaModel(Class<?> c) {
@@ -1301,6 +1320,18 @@ public final class JavaParserMetaModel {
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final HalfPointFreeExprMetaModel halfPointFreeExprMetaModel = new HalfPointFreeExprMetaModel(Optional.of(expressionMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final ListCreationLiteralExpressionMetaModel listCreationLiteralExpressionMetaModel = new ListCreationLiteralExpressionMetaModel(Optional.of(expressionMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final ListCreationLiteralExpressionElementMetaModel listCreationLiteralExpressionElementMetaModel = new ListCreationLiteralExpressionElementMetaModel(Optional.of(expressionMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final MapCreationLiteralExpressionMetaModel mapCreationLiteralExpressionMetaModel = new MapCreationLiteralExpressionMetaModel(Optional.of(expressionMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final MapCreationLiteralExpressionKeyValuePairMetaModel mapCreationLiteralExpressionKeyValuePairMetaModel = new MapCreationLiteralExpressionKeyValuePairMetaModel(Optional.of(expressionMetaModel));
 
     static {
         initializeNodeMetaModels();

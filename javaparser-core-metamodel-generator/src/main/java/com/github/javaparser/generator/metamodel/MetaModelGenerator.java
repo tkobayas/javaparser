@@ -199,6 +199,10 @@ public class MetaModelGenerator extends AbstractGenerator {
         add(org.mvel3.parser.ast.expr.HalfBinaryExpr.class);
         add(org.mvel3.parser.ast.expr.PointFreeExpr.class);
         add(org.mvel3.parser.ast.expr.HalfPointFreeExpr.class);
+        add(org.mvel3.parser.ast.expr.ListCreationLiteralExpression.class);
+        add(org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement.class);
+        add(org.mvel3.parser.ast.expr.MapCreationLiteralExpression.class);
+        add(org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair.class);
         //add(org.mvel3.parser.ast.expr.RuleDeclaration.class); // TODO: Higher level node should be generated later
     }};
 

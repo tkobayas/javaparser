@@ -38,6 +38,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 public class NoCommentHashCodeVisitor implements GenericVisitor<Integer, Void> {
 
@@ -507,5 +511,25 @@ public class NoCommentHashCodeVisitor implements GenericVisitor<Integer, Void> {
     @Override
     public Integer visit(final PointFreeExpr n, final Void arg) {
         return (n.getArg1().accept(this, arg)) * 31 + (n.getArg2().accept(this, arg)) * 31 + (n.getArg3().accept(this, arg)) * 31 + (n.getArg4().accept(this, arg)) * 31 + (n.getLeft().accept(this, arg)) * 31 + (n.isNegated() ? 1 : 0) * 31 + (n.getOperator().accept(this, arg)) * 31 + (n.getRight().accept(this, arg));
+    }
+
+    @Override
+    public Integer visit(final ListCreationLiteralExpressionElement n, final Void arg) {
+        return (n.getValue().accept(this, arg));
+    }
+
+    @Override
+    public Integer visit(final ListCreationLiteralExpression n, final Void arg) {
+        return (n.getExpressions().accept(this, arg));
+    }
+
+    @Override
+    public Integer visit(final MapCreationLiteralExpressionKeyValuePair n, final Void arg) {
+        return (n.getKey().accept(this, arg)) * 31 + (n.getValue().accept(this, arg));
+    }
+
+    @Override
+    public Integer visit(final MapCreationLiteralExpression n, final Void arg) {
+        return (n.getExpressions().accept(this, arg));
     }
 }

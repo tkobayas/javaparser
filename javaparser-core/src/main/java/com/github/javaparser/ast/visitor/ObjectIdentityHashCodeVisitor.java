@@ -38,6 +38,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that calculates a deep hash code for a node by using the hash codes of all its properties,
@@ -506,6 +510,26 @@ public class ObjectIdentityHashCodeVisitor implements GenericVisitor<Integer, Vo
 
     @Override
     public Integer visit(final PointFreeExpr n, final Void arg) {
+        return n.hashCode();
+    }
+
+    @Override
+    public Integer visit(final ListCreationLiteralExpressionElement n, final Void arg) {
+        return n.hashCode();
+    }
+
+    @Override
+    public Integer visit(final ListCreationLiteralExpression n, final Void arg) {
+        return n.hashCode();
+    }
+
+    @Override
+    public Integer visit(final MapCreationLiteralExpressionKeyValuePair n, final Void arg) {
+        return n.hashCode();
+    }
+
+    @Override
+    public Integer visit(final MapCreationLiteralExpression n, final Void arg) {
         return n.hashCode();
     }
 }

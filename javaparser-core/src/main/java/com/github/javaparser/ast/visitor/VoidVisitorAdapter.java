@@ -38,6 +38,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that returns nothing, and has a default implementation for all its visit
@@ -824,6 +828,31 @@ public abstract class VoidVisitorAdapter<A> implements VoidVisitor<A> {
         n.getLeft().accept(this, arg);
         n.getOperator().accept(this, arg);
         n.getRight().forEach(p -> p.accept(this, arg));
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
+
+    @Override
+    public void visit(final ListCreationLiteralExpressionElement n, final A arg) {
+        n.getValue().accept(this, arg);
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
+
+    @Override
+    public void visit(final ListCreationLiteralExpression n, final A arg) {
+        n.getExpressions().forEach(p -> p.accept(this, arg));
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
+
+    @Override
+    public void visit(final MapCreationLiteralExpressionKeyValuePair n, final A arg) {
+        n.getKey().accept(this, arg);
+        n.getValue().accept(this, arg);
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
+
+    @Override
+    public void visit(final MapCreationLiteralExpression n, final A arg) {
+        n.getExpressions().forEach(p -> p.accept(this, arg));
         n.getComment().ifPresent(l -> l.accept(this, arg));
     }
 }

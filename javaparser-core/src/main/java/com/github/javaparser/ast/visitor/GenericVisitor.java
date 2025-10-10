@@ -38,6 +38,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that has a return value.
@@ -268,4 +272,12 @@ public interface GenericVisitor<R, A> {
     R visit(HalfPointFreeExpr n, A arg);
 
     R visit(PointFreeExpr n, A arg);
+
+    R visit(ListCreationLiteralExpressionElement n, A arg);
+
+    R visit(ListCreationLiteralExpression n, A arg);
+
+    R visit(MapCreationLiteralExpressionKeyValuePair n, A arg);
+
+    R visit(MapCreationLiteralExpression n, A arg);
 }

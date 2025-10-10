@@ -57,6 +57,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.InlineCastExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
 
 /**
@@ -793,6 +797,50 @@ public class DefaultPrettyPrinterVisitor implements VoidVisitor<Void> {
             }
             printer.print(")");
         }
+    }
+
+    @Override
+    public void visit(final ListCreationLiteralExpression n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        printer.print("[");
+        for (int i = 0; i < n.getExpressions().size(); i++) {
+            if (i > 0) {
+                printer.print(", ");
+            }
+            n.getExpressions().get(i).accept(this, arg);
+        }
+        printer.print("]");
+    }
+
+    @Override
+    public void visit(final ListCreationLiteralExpressionElement n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        n.getValue().accept(this, arg);
+    }
+
+    @Override
+    public void visit(final MapCreationLiteralExpression n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        printer.print("{");
+        for (int i = 0; i < n.getExpressions().size(); i++) {
+            if (i > 0) {
+                printer.print(", ");
+            }
+            n.getExpressions().get(i).accept(this, arg);
+        }
+        printer.print("}");
+    }
+
+    @Override
+    public void visit(final MapCreationLiteralExpressionKeyValuePair n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        n.getKey().accept(this, arg);
+        printer.print(" : ");
+        n.getValue().accept(this, arg);
     }
 
     @Override

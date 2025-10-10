@@ -38,6 +38,10 @@ import org.mvel3.parser.ast.expr.FullyQualifiedInlineCastExpr;
 import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 
 /**
  * A visitor that has a return value (R), and has a default implementation for all its visit
@@ -2411,6 +2415,75 @@ public abstract class GenericVisitorAdapter<R, A> implements GenericVisitor<R, A
         }
         {
             result = n.getRight().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        if (n.getComment().isPresent()) {
+            result = n.getComment().get().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+    @Override
+    public R visit(final ListCreationLiteralExpressionElement n, final A arg) {
+        R result;
+        {
+            result = n.getValue().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        if (n.getComment().isPresent()) {
+            result = n.getComment().get().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+    @Override
+    public R visit(final ListCreationLiteralExpression n, final A arg) {
+        R result;
+        {
+            result = n.getExpressions().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        if (n.getComment().isPresent()) {
+            result = n.getComment().get().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+    @Override
+    public R visit(final MapCreationLiteralExpressionKeyValuePair n, final A arg) {
+        R result;
+        {
+            result = n.getKey().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        {
+            result = n.getValue().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        if (n.getComment().isPresent()) {
+            result = n.getComment().get().accept(this, arg);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+    @Override
+    public R visit(final MapCreationLiteralExpression n, final A arg) {
+        R result;
+        {
+            result = n.getExpressions().accept(this, arg);
             if (result != null)
                 return result;
         }

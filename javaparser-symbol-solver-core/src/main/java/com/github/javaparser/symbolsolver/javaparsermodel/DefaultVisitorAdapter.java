@@ -41,6 +41,10 @@ import org.mvel3.parser.ast.expr.HalfBinaryExpr;
 import org.mvel3.parser.ast.expr.HalfPointFreeExpr;
 import org.mvel3.parser.ast.expr.InlineCastExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 
 public class DefaultVisitorAdapter implements GenericVisitor<ResolvedType, Boolean> {
     @Override
@@ -225,6 +229,26 @@ public class DefaultVisitorAdapter implements GenericVisitor<ResolvedType, Boole
 
     @Override
     public ResolvedType visit(PointFreeExpr node, Boolean aBoolean) {
+        throw new UnsupportedOperationException(node.getClass().getCanonicalName());
+    }
+
+    @Override
+    public ResolvedType visit(ListCreationLiteralExpression node, Boolean aBoolean) {
+        throw new UnsupportedOperationException(node.getClass().getCanonicalName());
+    }
+
+    @Override
+    public ResolvedType visit(ListCreationLiteralExpressionElement node, Boolean aBoolean) {
+        throw new UnsupportedOperationException(node.getClass().getCanonicalName());
+    }
+
+    @Override
+    public ResolvedType visit(MapCreationLiteralExpression node, Boolean aBoolean) {
+        throw new UnsupportedOperationException(node.getClass().getCanonicalName());
+    }
+
+    @Override
+    public ResolvedType visit(MapCreationLiteralExpressionKeyValuePair node, Boolean aBoolean) {
         throw new UnsupportedOperationException(node.getClass().getCanonicalName());
     }
 
