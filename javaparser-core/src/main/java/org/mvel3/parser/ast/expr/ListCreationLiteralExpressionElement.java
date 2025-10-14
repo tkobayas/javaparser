@@ -71,24 +71,30 @@ public class ListCreationLiteralExpressionElement extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isListCreationLiteralExpressionElement() {
         return true;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public ListCreationLiteralExpressionElement asListCreationLiteralExpressionElement() {
         return this;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<ListCreationLiteralExpressionElement> toListCreationLiteralExpressionElement() {
         return Optional.of(this);
     }
 
+    @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifListCreationLiteralExpressionElement(Consumer<ListCreationLiteralExpressionElement> action) {
         action.accept(this);
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public ListCreationLiteralExpressionElement setValue(final Expression value) {
         assertNotNull(value);
         if (value == this.value) {
@@ -103,6 +109,7 @@ public class ListCreationLiteralExpressionElement extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.ReplaceMethodGenerator")
     public boolean replace(Node node, Node replacementNode) {
         if (node == null) {
             return false;
@@ -115,11 +122,13 @@ public class ListCreationLiteralExpressionElement extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.CloneGenerator")
     public ListCreationLiteralExpressionElement clone() {
         return (ListCreationLiteralExpressionElement) accept(new CloneVisitor(), null);
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.GetMetaModelGenerator")
     public ListCreationLiteralExpressionElementMetaModel getMetaModel() {
         return JavaParserMetaModel.listCreationLiteralExpressionElementMetaModel;
     }

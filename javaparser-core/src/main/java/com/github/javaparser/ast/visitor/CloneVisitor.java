@@ -44,6 +44,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 
 /**
  * A visitor that clones (copies) a node and all its children.
@@ -1456,6 +1458,33 @@ public class CloneVisitor implements GenericVisitor<Visitable, Object> {
         NodeList<Expression> expressions = cloneList(n.getExpressions(), arg);
         Comment comment = cloneNode(n.getComment(), arg);
         MapCreationLiteralExpression r = new MapCreationLiteralExpression(n.getTokenRange().orElse(null), expressions);
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
+
+    @Override
+    public Visitable visit(final NullSafeFieldAccessExpr n, final Object arg) {
+        SimpleName name = cloneNode(n.getName(), arg);
+        Expression scope = cloneNode(n.getScope(), arg);
+        NodeList<Type> typeArguments = cloneList(n.getTypeArguments().orElse(null), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        NullSafeFieldAccessExpr r = new NullSafeFieldAccessExpr(n.getTokenRange().orElse(null), scope, typeArguments, name);
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
+
+    @Override
+    public Visitable visit(final NullSafeMethodCallExpr n, final Object arg) {
+        NodeList<Expression> arguments = cloneList(n.getArguments(), arg);
+        SimpleName name = cloneNode(n.getName(), arg);
+        Expression scope = cloneNode(n.getScope(), arg);
+        NodeList<Type> typeArguments = cloneList(n.getTypeArguments().orElse(null), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        NullSafeMethodCallExpr r = new NullSafeMethodCallExpr(n.getTokenRange().orElse(null), scope, typeArguments, name, arguments);
         r.setComment(comment);
         n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
         copyData(n, r);

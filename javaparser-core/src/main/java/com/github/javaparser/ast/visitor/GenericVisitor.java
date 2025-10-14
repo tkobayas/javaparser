@@ -42,6 +42,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 
 /**
  * A visitor that has a return value.
@@ -280,4 +282,8 @@ public interface GenericVisitor<R, A> {
     R visit(MapCreationLiteralExpressionKeyValuePair n, A arg);
 
     R visit(MapCreationLiteralExpression n, A arg);
+
+    R visit(NullSafeFieldAccessExpr n, A arg);
+
+    R visit(NullSafeMethodCallExpr n, A arg);
 }

@@ -62,24 +62,30 @@ public class MapCreationLiteralExpressionKeyValuePair extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isMapCreationLiteralExpressionKeyValuePair() {
         return true;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public MapCreationLiteralExpressionKeyValuePair asMapCreationLiteralExpressionKeyValuePair() {
         return this;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<MapCreationLiteralExpressionKeyValuePair> toMapCreationLiteralExpressionKeyValuePair() {
         return Optional.of(this);
     }
 
+    @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifMapCreationLiteralExpressionKeyValuePair(Consumer<MapCreationLiteralExpressionKeyValuePair> action) {
         action.accept(this);
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public MapCreationLiteralExpressionKeyValuePair setKey(final Expression key) {
         assertNotNull(key);
         if (key == this.key) {
@@ -93,6 +99,7 @@ public class MapCreationLiteralExpressionKeyValuePair extends Expression {
         return this;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public MapCreationLiteralExpressionKeyValuePair setValue(final Expression value) {
         assertNotNull(value);
         if (value == this.value) {
@@ -107,6 +114,7 @@ public class MapCreationLiteralExpressionKeyValuePair extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.ReplaceMethodGenerator")
     public boolean replace(Node node, Node replacementNode) {
         if (node == null) {
             return false;
@@ -123,11 +131,13 @@ public class MapCreationLiteralExpressionKeyValuePair extends Expression {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.CloneGenerator")
     public MapCreationLiteralExpressionKeyValuePair clone() {
         return (MapCreationLiteralExpressionKeyValuePair) accept(new CloneVisitor(), null);
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.GetMetaModelGenerator")
     public MapCreationLiteralExpressionKeyValuePairMetaModel getMetaModel() {
         return JavaParserMetaModel.mapCreationLiteralExpressionKeyValuePairMetaModel;
     }

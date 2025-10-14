@@ -46,6 +46,9 @@ import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import org.mvel3.parser.ast.visitor.DrlGenericVisitor;
 import org.mvel3.parser.ast.visitor.DrlVoidVisitor;
 import static com.github.javaparser.utils.Utils.assertNotNull;
+import java.util.function.Consumer;
+import com.github.javaparser.metamodel.NullSafeMethodCallExprMetaModel;
+import com.github.javaparser.metamodel.JavaParserMetaModel;
 
 public class NullSafeMethodCallExpr extends Expression implements NodeWithTypeArguments<NullSafeMethodCallExpr>, NodeWithArguments<NullSafeMethodCallExpr>, NodeWithSimpleName<NullSafeMethodCallExpr>, NodeWithOptionalScope<NullSafeMethodCallExpr>, Resolvable<ResolvedMethodDeclaration> {
 
@@ -106,13 +109,15 @@ public class NullSafeMethodCallExpr extends Expression implements NodeWithTypeAr
     }
 
     @Override
-    public <R, A> R accept(GenericVisitor<R, A> v, A arg) {
-        return ((DrlGenericVisitor<R, A>) v).visit(this, arg);
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <R, A> R accept(final GenericVisitor<R, A> v, final A arg) {
+        return v.visit(this, arg);
     }
 
     @Override
-    public <A> void accept(VoidVisitor<A> v, A arg) {
-        ((DrlVoidVisitor<A>) v).visit(this, arg);
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <A> void accept(final VoidVisitor<A> v, final A arg) {
+        v.visit(this, arg);
     }
 
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
@@ -137,9 +142,8 @@ public class NullSafeMethodCallExpr extends Expression implements NodeWithTypeAr
             return this;
         }
         notifyPropertyChange(ObservableProperty.ARGUMENTS, this.arguments, arguments);
-        if (this.arguments != null) {
+        if (this.arguments != null)
             this.arguments.setParentNode(null);
-        }
         this.arguments = arguments;
         setAsParentNodeOf(arguments);
         return this;
@@ -152,9 +156,8 @@ public class NullSafeMethodCallExpr extends Expression implements NodeWithTypeAr
             return this;
         }
         notifyPropertyChange(ObservableProperty.NAME, this.name, name);
-        if (this.name != null) {
+        if (this.name != null)
             this.name.setParentNode(null);
-        }
         this.name = name;
         setAsParentNodeOf(name);
         return this;
@@ -166,9 +169,8 @@ public class NullSafeMethodCallExpr extends Expression implements NodeWithTypeAr
             return this;
         }
         notifyPropertyChange(ObservableProperty.SCOPE, this.scope, scope);
-        if (this.scope != null) {
+        if (this.scope != null)
             this.scope.setParentNode(null);
-        }
         this.scope = scope;
         setAsParentNodeOf(scope);
         return this;
@@ -191,9 +193,8 @@ public class NullSafeMethodCallExpr extends Expression implements NodeWithTypeAr
             return this;
         }
         notifyPropertyChange(ObservableProperty.TYPE_ARGUMENTS, this.typeArguments, typeArguments);
-        if (this.typeArguments != null) {
+        if (this.typeArguments != null)
             this.typeArguments.setParentNode(null);
-        }
         this.typeArguments = typeArguments;
         setAsParentNodeOf(typeArguments);
         return this;
@@ -230,7 +231,7 @@ public class NullSafeMethodCallExpr extends Expression implements NodeWithTypeAr
 
     @Generated("com.github.javaparser.generator.core.node.RemoveMethodGenerator")
     public NullSafeMethodCallExpr removeScope() {
-        return setScope(null);
+        return setScope((Expression) null);
     }
 
     @Override
@@ -296,5 +297,29 @@ public class NullSafeMethodCallExpr extends Expression implements NodeWithTypeAr
     @Deprecated
     public ResolvedMethodDeclaration resolveInvokedMethod() {
         return resolve();
+    }
+
+    @Override
+    public boolean isNullSafeMethodCallExpr() {
+        return true;
+    }
+
+    @Override
+    public NullSafeMethodCallExpr asNullSafeMethodCallExpr() {
+        return this;
+    }
+
+    @Override
+    public Optional<NullSafeMethodCallExpr> toNullSafeMethodCallExpr() {
+        return Optional.of(this);
+    }
+
+    public void ifNullSafeMethodCallExpr(Consumer<NullSafeMethodCallExpr> action) {
+        action.accept(this);
+    }
+
+    @Override
+    public NullSafeMethodCallExprMetaModel getMetaModel() {
+        return JavaParserMetaModel.nullSafeMethodCallExprMetaModel;
     }
 }

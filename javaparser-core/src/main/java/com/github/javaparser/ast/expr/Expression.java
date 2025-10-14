@@ -48,6 +48,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 
 /**
  * A base class for all expressions.
@@ -1062,63 +1064,109 @@ public abstract class Expression extends Node {
     public void ifPointFreeExpr(Consumer<PointFreeExpr> action) {
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isListCreationLiteralExpressionElement() {
         return false;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public ListCreationLiteralExpressionElement asListCreationLiteralExpressionElement() {
         throw new IllegalStateException(f("%s is not ListCreationLiteralExpressionElement, it is %s", this, this.getClass().getSimpleName()));
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<ListCreationLiteralExpressionElement> toListCreationLiteralExpressionElement() {
         return Optional.empty();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifListCreationLiteralExpressionElement(Consumer<ListCreationLiteralExpressionElement> action) {
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isListCreationLiteralExpression() {
         return false;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public ListCreationLiteralExpression asListCreationLiteralExpression() {
         throw new IllegalStateException(f("%s is not ListCreationLiteralExpression, it is %s", this, this.getClass().getSimpleName()));
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<ListCreationLiteralExpression> toListCreationLiteralExpression() {
         return Optional.empty();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifListCreationLiteralExpression(Consumer<ListCreationLiteralExpression> action) {
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isMapCreationLiteralExpressionKeyValuePair() {
         return false;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public MapCreationLiteralExpressionKeyValuePair asMapCreationLiteralExpressionKeyValuePair() {
         throw new IllegalStateException(f("%s is not MapCreationLiteralExpressionKeyValuePair, it is %s", this, this.getClass().getSimpleName()));
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<MapCreationLiteralExpressionKeyValuePair> toMapCreationLiteralExpressionKeyValuePair() {
         return Optional.empty();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifMapCreationLiteralExpressionKeyValuePair(Consumer<MapCreationLiteralExpressionKeyValuePair> action) {
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isMapCreationLiteralExpression() {
         return false;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public MapCreationLiteralExpression asMapCreationLiteralExpression() {
         throw new IllegalStateException(f("%s is not MapCreationLiteralExpression, it is %s", this, this.getClass().getSimpleName()));
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<MapCreationLiteralExpression> toMapCreationLiteralExpression() {
         return Optional.empty();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifMapCreationLiteralExpression(Consumer<MapCreationLiteralExpression> action) {
+    }
+
+    public boolean isNullSafeFieldAccessExpr() {
+        return false;
+    }
+
+    public NullSafeFieldAccessExpr asNullSafeFieldAccessExpr() {
+        throw new IllegalStateException(f("%s is not NullSafeFieldAccessExpr, it is %s", this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<NullSafeFieldAccessExpr> toNullSafeFieldAccessExpr() {
+        return Optional.empty();
+    }
+
+    public void ifNullSafeFieldAccessExpr(Consumer<NullSafeFieldAccessExpr> action) {
+    }
+
+    public boolean isNullSafeMethodCallExpr() {
+        return false;
+    }
+
+    public NullSafeMethodCallExpr asNullSafeMethodCallExpr() {
+        throw new IllegalStateException(f("%s is not NullSafeMethodCallExpr, it is %s", this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<NullSafeMethodCallExpr> toNullSafeMethodCallExpr() {
+        return Optional.empty();
+    }
+
+    public void ifNullSafeMethodCallExpr(Consumer<NullSafeMethodCallExpr> action) {
     }
 }

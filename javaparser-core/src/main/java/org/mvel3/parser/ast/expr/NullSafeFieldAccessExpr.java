@@ -49,6 +49,8 @@ import com.github.javaparser.resolution.declarations.ResolvedValueDeclaration;
 import org.mvel3.parser.ast.visitor.DrlGenericVisitor;
 import org.mvel3.parser.ast.visitor.DrlVoidVisitor;
 import static com.github.javaparser.utils.Utils.assertNotNull;
+import java.util.function.Consumer;
+import com.github.javaparser.metamodel.NullSafeFieldAccessExprMetaModel;
 
 public class NullSafeFieldAccessExpr extends Expression implements NodeWithSimpleName<NullSafeFieldAccessExpr>, NodeWithTypeArguments<NullSafeFieldAccessExpr>, NodeWithScope<NullSafeFieldAccessExpr>, Resolvable<ResolvedValueDeclaration> {
 
@@ -85,13 +87,15 @@ public class NullSafeFieldAccessExpr extends Expression implements NodeWithSimpl
     }
 
     @Override
-    public <R, A> R accept(GenericVisitor<R, A> v, A arg) {
-        return ((DrlGenericVisitor<R, A>) v).visit(this, arg);
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <R, A> R accept(final GenericVisitor<R, A> v, final A arg) {
+        return v.visit(this, arg);
     }
 
     @Override
-    public <A> void accept(VoidVisitor<A> v, A arg) {
-        ((DrlVoidVisitor<A>) v).visit(this, arg);
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <A> void accept(final VoidVisitor<A> v, final A arg) {
+        v.visit(this, arg);
     }
 
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
@@ -106,9 +110,8 @@ public class NullSafeFieldAccessExpr extends Expression implements NodeWithSimpl
             return this;
         }
         notifyPropertyChange(ObservableProperty.NAME, this.name, name);
-        if (this.name != null) {
+        if (this.name != null)
             this.name.setParentNode(null);
-        }
         this.name = name;
         setAsParentNodeOf(name);
         return this;
@@ -157,9 +160,8 @@ public class NullSafeFieldAccessExpr extends Expression implements NodeWithSimpl
             return this;
         }
         notifyPropertyChange(ObservableProperty.SCOPE, this.scope, scope);
-        if (this.scope != null) {
+        if (this.scope != null)
             this.scope.setParentNode(null);
-        }
         this.scope = scope;
         setAsParentNodeOf(scope);
         return this;
@@ -182,9 +184,8 @@ public class NullSafeFieldAccessExpr extends Expression implements NodeWithSimpl
             return this;
         }
         notifyPropertyChange(ObservableProperty.TYPE_ARGUMENTS, this.typeArguments, typeArguments);
-        if (this.typeArguments != null) {
+        if (this.typeArguments != null)
             this.typeArguments.setParentNode(null);
-        }
         this.typeArguments = typeArguments;
         setAsParentNodeOf(typeArguments);
         return this;
@@ -198,8 +199,8 @@ public class NullSafeFieldAccessExpr extends Expression implements NodeWithSimpl
 
     @Override
     @Generated("com.github.javaparser.generator.core.node.GetMetaModelGenerator")
-    public FieldAccessExprMetaModel getMetaModel() {
-        return JavaParserMetaModel.fieldAccessExprMetaModel;
+    public NullSafeFieldAccessExprMetaModel getMetaModel() {
+        return JavaParserMetaModel.nullSafeFieldAccessExprMetaModel;
     }
 
     @Override
@@ -258,10 +259,10 @@ public class NullSafeFieldAccessExpr extends Expression implements NodeWithSimpl
      * @return a {@link ResolvedValueDeclaration} representing the declaration of the accessed value.
      * @throws UnsolvedSymbolException if the declaration corresponding to the field access expression could not be
      *                                 resolved.
-     * @see NameExpr#resolve()
-     * @see MethodCallExpr#resolve()
-     * @see ObjectCreationExpr#resolve()
-     * @see ExplicitConstructorInvocationStmt#resolve()
+     * @see com.github.javaparser.ast.expr.NameExpr#resolve()
+     * @see com.github.javaparser.ast.expr.MethodCallExpr#resolve()
+     * @see com.github.javaparser.ast.expr.ObjectCreationExpr#resolve()
+     * @see com.github.javaparser.ast.stmt.ExplicitConstructorInvocationStmt#resolve()
      */
     @Override
     public ResolvedValueDeclaration resolve() {
@@ -281,5 +282,24 @@ public class NullSafeFieldAccessExpr extends Expression implements NodeWithSimpl
      */
     public boolean isTopLevel() {
         return !isInternal();
+    }
+
+    @Override
+    public boolean isNullSafeFieldAccessExpr() {
+        return true;
+    }
+
+    @Override
+    public NullSafeFieldAccessExpr asNullSafeFieldAccessExpr() {
+        return this;
+    }
+
+    @Override
+    public Optional<NullSafeFieldAccessExpr> toNullSafeFieldAccessExpr() {
+        return Optional.of(this);
+    }
+
+    public void ifNullSafeFieldAccessExpr(Consumer<NullSafeFieldAccessExpr> action) {
+        action.accept(this);
     }
 }

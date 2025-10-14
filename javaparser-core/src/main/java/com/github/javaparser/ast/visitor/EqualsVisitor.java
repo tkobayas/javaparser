@@ -44,6 +44,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 
 /**
  * A visitor that calculates deep node equality by comparing all properties and child nodes of the node.
@@ -1586,6 +1588,36 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Visitable> {
     public Boolean visit(final MapCreationLiteralExpression n, final Visitable arg) {
         final MapCreationLiteralExpression n2 = (MapCreationLiteralExpression) arg;
         if (!nodesEquals(n.getExpressions(), n2.getExpressions()))
+            return false;
+        if (!nodeEquals(n.getComment(), n2.getComment()))
+            return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final NullSafeFieldAccessExpr n, final Visitable arg) {
+        final NullSafeFieldAccessExpr n2 = (NullSafeFieldAccessExpr) arg;
+        if (!nodeEquals(n.getName(), n2.getName()))
+            return false;
+        if (!nodeEquals(n.getScope(), n2.getScope()))
+            return false;
+        if (!nodesEquals(n.getTypeArguments(), n2.getTypeArguments()))
+            return false;
+        if (!nodeEquals(n.getComment(), n2.getComment()))
+            return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final NullSafeMethodCallExpr n, final Visitable arg) {
+        final NullSafeMethodCallExpr n2 = (NullSafeMethodCallExpr) arg;
+        if (!nodesEquals(n.getArguments(), n2.getArguments()))
+            return false;
+        if (!nodeEquals(n.getName(), n2.getName()))
+            return false;
+        if (!nodeEquals(n.getScope(), n2.getScope()))
+            return false;
+        if (!nodesEquals(n.getTypeArguments(), n2.getTypeArguments()))
             return false;
         if (!nodeEquals(n.getComment(), n2.getComment()))
             return false;

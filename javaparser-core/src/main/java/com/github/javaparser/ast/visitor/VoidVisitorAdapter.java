@@ -42,6 +42,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 
 /**
  * A visitor that returns nothing, and has a default implementation for all its visit
@@ -853,6 +855,23 @@ public abstract class VoidVisitorAdapter<A> implements VoidVisitor<A> {
     @Override
     public void visit(final MapCreationLiteralExpression n, final A arg) {
         n.getExpressions().forEach(p -> p.accept(this, arg));
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
+
+    @Override
+    public void visit(final NullSafeFieldAccessExpr n, final A arg) {
+        n.getName().accept(this, arg);
+        n.getScope().accept(this, arg);
+        n.getTypeArguments().ifPresent(l -> l.forEach(v -> v.accept(this, arg)));
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
+
+    @Override
+    public void visit(final NullSafeMethodCallExpr n, final A arg) {
+        n.getArguments().forEach(p -> p.accept(this, arg));
+        n.getName().accept(this, arg);
+        n.getScope().ifPresent(l -> l.accept(this, arg));
+        n.getTypeArguments().ifPresent(l -> l.forEach(v -> v.accept(this, arg)));
         n.getComment().ifPresent(l -> l.accept(this, arg));
     }
 }

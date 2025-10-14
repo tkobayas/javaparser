@@ -78,6 +78,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 
 public class TypeExtractor extends DefaultVisitorAdapter {
 
@@ -240,6 +242,18 @@ public class TypeExtractor extends DefaultVisitorAdapter {
     @Override
     public ResolvedType visit(MapCreationLiteralExpressionKeyValuePair node, Boolean solveLambdas) {
         return mapEntryReferenceType;
+    }
+
+    @Override
+    public ResolvedType visit(NullSafeFieldAccessExpr node, Boolean solveLambdas) {
+        return node.getScope().accept(this, solveLambdas);
+    }
+
+    @Override
+    public ResolvedType visit(NullSafeMethodCallExpr node, Boolean solveLambdas) {
+        return node.getScope()
+                .map(scope -> scope.accept(this, solveLambdas))
+                .orElseThrow(() -> new IllegalStateException("Null-safe method call without scope: " + node));
     }
 
     @Override

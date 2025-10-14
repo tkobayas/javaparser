@@ -322,6 +322,13 @@ public final class JavaParserMetaModel {
         mapCreationLiteralExpressionMetaModel.getConstructorParameters().add(mapCreationLiteralExpressionMetaModel.expressionsPropertyMetaModel);
         mapCreationLiteralExpressionKeyValuePairMetaModel.getConstructorParameters().add(mapCreationLiteralExpressionKeyValuePairMetaModel.keyPropertyMetaModel);
         mapCreationLiteralExpressionKeyValuePairMetaModel.getConstructorParameters().add(mapCreationLiteralExpressionKeyValuePairMetaModel.valuePropertyMetaModel);
+        nullSafeFieldAccessExprMetaModel.getConstructorParameters().add(nullSafeFieldAccessExprMetaModel.scopePropertyMetaModel);
+        nullSafeFieldAccessExprMetaModel.getConstructorParameters().add(nullSafeFieldAccessExprMetaModel.typeArgumentsPropertyMetaModel);
+        nullSafeFieldAccessExprMetaModel.getConstructorParameters().add(nullSafeFieldAccessExprMetaModel.namePropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.getConstructorParameters().add(nullSafeMethodCallExprMetaModel.scopePropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.getConstructorParameters().add(nullSafeMethodCallExprMetaModel.typeArgumentsPropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.getConstructorParameters().add(nullSafeMethodCallExprMetaModel.namePropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.getConstructorParameters().add(nullSafeMethodCallExprMetaModel.argumentsPropertyMetaModel);
     }
 
     public static List<BaseNodeMetaModel> getNodeMetaModels() {
@@ -417,6 +424,8 @@ public final class JavaParserMetaModel {
         nodeMetaModels.add(nodeMetaModel);
         nodeMetaModels.add(normalAnnotationExprMetaModel);
         nodeMetaModels.add(nullLiteralExprMetaModel);
+        nodeMetaModels.add(nullSafeFieldAccessExprMetaModel);
+        nodeMetaModels.add(nullSafeMethodCallExprMetaModel);
         nodeMetaModels.add(objectCreationExprMetaModel);
         nodeMetaModels.add(packageDeclarationMetaModel);
         nodeMetaModels.add(parameterMetaModel);
@@ -947,6 +956,24 @@ public final class JavaParserMetaModel {
         mapCreationLiteralExpressionKeyValuePairMetaModel.getDeclaredPropertyMetaModels().add(mapCreationLiteralExpressionKeyValuePairMetaModel.keyPropertyMetaModel);
         mapCreationLiteralExpressionKeyValuePairMetaModel.valuePropertyMetaModel = new PropertyMetaModel(mapCreationLiteralExpressionKeyValuePairMetaModel, "value", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, false, false);
         mapCreationLiteralExpressionKeyValuePairMetaModel.getDeclaredPropertyMetaModels().add(mapCreationLiteralExpressionKeyValuePairMetaModel.valuePropertyMetaModel);
+        nullSafeFieldAccessExprMetaModel.namePropertyMetaModel = new PropertyMetaModel(nullSafeFieldAccessExprMetaModel, "name", com.github.javaparser.ast.expr.SimpleName.class, Optional.of(simpleNameMetaModel), false, false, false, false);
+        nullSafeFieldAccessExprMetaModel.getDeclaredPropertyMetaModels().add(nullSafeFieldAccessExprMetaModel.namePropertyMetaModel);
+        nullSafeFieldAccessExprMetaModel.scopePropertyMetaModel = new PropertyMetaModel(nullSafeFieldAccessExprMetaModel, "scope", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, false, false);
+        nullSafeFieldAccessExprMetaModel.getDeclaredPropertyMetaModels().add(nullSafeFieldAccessExprMetaModel.scopePropertyMetaModel);
+        nullSafeFieldAccessExprMetaModel.typeArgumentsPropertyMetaModel = new PropertyMetaModel(nullSafeFieldAccessExprMetaModel, "typeArguments", com.github.javaparser.ast.type.Type.class, Optional.of(typeMetaModel), true, false, true, false);
+        nullSafeFieldAccessExprMetaModel.getDeclaredPropertyMetaModels().add(nullSafeFieldAccessExprMetaModel.typeArgumentsPropertyMetaModel);
+        nullSafeFieldAccessExprMetaModel.usingDiamondOperatorPropertyMetaModel = new PropertyMetaModel(nullSafeFieldAccessExprMetaModel, "usingDiamondOperator", boolean.class, Optional.empty(), false, false, false, false);
+        nullSafeFieldAccessExprMetaModel.getDerivedPropertyMetaModels().add(nullSafeFieldAccessExprMetaModel.usingDiamondOperatorPropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.argumentsPropertyMetaModel = new PropertyMetaModel(nullSafeMethodCallExprMetaModel, "arguments", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, true, false);
+        nullSafeMethodCallExprMetaModel.getDeclaredPropertyMetaModels().add(nullSafeMethodCallExprMetaModel.argumentsPropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.namePropertyMetaModel = new PropertyMetaModel(nullSafeMethodCallExprMetaModel, "name", com.github.javaparser.ast.expr.SimpleName.class, Optional.of(simpleNameMetaModel), false, false, false, false);
+        nullSafeMethodCallExprMetaModel.getDeclaredPropertyMetaModels().add(nullSafeMethodCallExprMetaModel.namePropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.scopePropertyMetaModel = new PropertyMetaModel(nullSafeMethodCallExprMetaModel, "scope", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), true, false, false, false);
+        nullSafeMethodCallExprMetaModel.getDeclaredPropertyMetaModels().add(nullSafeMethodCallExprMetaModel.scopePropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.typeArgumentsPropertyMetaModel = new PropertyMetaModel(nullSafeMethodCallExprMetaModel, "typeArguments", com.github.javaparser.ast.type.Type.class, Optional.of(typeMetaModel), true, false, true, false);
+        nullSafeMethodCallExprMetaModel.getDeclaredPropertyMetaModels().add(nullSafeMethodCallExprMetaModel.typeArgumentsPropertyMetaModel);
+        nullSafeMethodCallExprMetaModel.usingDiamondOperatorPropertyMetaModel = new PropertyMetaModel(nullSafeMethodCallExprMetaModel, "usingDiamondOperator", boolean.class, Optional.empty(), false, false, false, false);
+        nullSafeMethodCallExprMetaModel.getDerivedPropertyMetaModels().add(nullSafeMethodCallExprMetaModel.usingDiamondOperatorPropertyMetaModel);
     }
 
     public static Optional<BaseNodeMetaModel> getNodeMetaModel(Class<?> c) {
@@ -1332,6 +1359,12 @@ public final class JavaParserMetaModel {
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final MapCreationLiteralExpressionKeyValuePairMetaModel mapCreationLiteralExpressionKeyValuePairMetaModel = new MapCreationLiteralExpressionKeyValuePairMetaModel(Optional.of(expressionMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final NullSafeFieldAccessExprMetaModel nullSafeFieldAccessExprMetaModel = new NullSafeFieldAccessExprMetaModel(Optional.of(expressionMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final NullSafeMethodCallExprMetaModel nullSafeMethodCallExprMetaModel = new NullSafeMethodCallExprMetaModel(Optional.of(expressionMetaModel));
 
     static {
         initializeNodeMetaModels();

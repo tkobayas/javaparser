@@ -42,6 +42,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 
 /**
  * A visitor that does not return anything.
@@ -275,4 +277,8 @@ public interface VoidVisitor<A> {
     void visit(MapCreationLiteralExpressionKeyValuePair n, A arg);
 
     void visit(MapCreationLiteralExpression n, A arg);
+
+    void visit(NullSafeFieldAccessExpr n, A arg);
+
+    void visit(NullSafeMethodCallExpr n, A arg);
 }

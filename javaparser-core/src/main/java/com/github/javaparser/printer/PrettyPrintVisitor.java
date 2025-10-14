@@ -56,6 +56,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 import org.mvel3.parser.ast.expr.PointFreeExpr;
 
 /**
@@ -851,6 +853,28 @@ public class PrettyPrintVisitor implements VoidVisitor<Void> {
         n.getKey().accept(this, arg);
         printer.print(" : ");
         n.getValue().accept(this, arg);
+    }
+
+    @Override
+    public void visit(final NullSafeFieldAccessExpr n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        n.getScope().accept(this, arg);
+        printer.print("!.");
+        n.getName().accept(this, arg);
+    }
+
+    @Override
+    public void visit(final NullSafeMethodCallExpr n, final Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        n.getScope().ifPresent(scope -> {
+            scope.accept(this, arg);
+            printer.print("!.");
+        });
+        printTypeArgs(n, arg);
+        n.getName().accept(this, arg);
+        printArguments(n.getArguments(), arg);
     }
 
     @Override

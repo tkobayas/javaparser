@@ -49,6 +49,8 @@ import org.mvel3.parser.ast.expr.ListCreationLiteralExpressionElement;
 import org.mvel3.parser.ast.expr.ListCreationLiteralExpression;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpressionKeyValuePair;
 import org.mvel3.parser.ast.expr.MapCreationLiteralExpression;
+import org.mvel3.parser.ast.expr.NullSafeFieldAccessExpr;
+import org.mvel3.parser.ast.expr.NullSafeMethodCallExpr;
 
 /**
  * This visitor can be used to save time when some specific nodes needs
@@ -1504,6 +1506,38 @@ public class ModifierVisitor<A> implements GenericVisitor<Visitable, A> {
         NodeList<Expression> expressions = modifyList(n.getExpressions(), arg);
         Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
         n.setExpressions(expressions);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final NullSafeFieldAccessExpr n, final A arg) {
+        SimpleName name = (SimpleName) n.getName().accept(this, arg);
+        Expression scope = (Expression) n.getScope().accept(this, arg);
+        NodeList<Type> typeArguments = modifyList(n.getTypeArguments(), arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        if (name == null || scope == null)
+            return null;
+        n.setName(name);
+        n.setScope(scope);
+        n.setTypeArguments(typeArguments);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final NullSafeMethodCallExpr n, final A arg) {
+        NodeList<Expression> arguments = modifyList(n.getArguments(), arg);
+        SimpleName name = (SimpleName) n.getName().accept(this, arg);
+        Expression scope = n.getScope().map(s -> (Expression) s.accept(this, arg)).orElse(null);
+        NodeList<Type> typeArguments = modifyList(n.getTypeArguments(), arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        if (name == null)
+            return null;
+        n.setArguments(arguments);
+        n.setName(name);
+        n.setScope(scope);
+        n.setTypeArguments(typeArguments);
         n.setComment(comment);
         return n;
     }
