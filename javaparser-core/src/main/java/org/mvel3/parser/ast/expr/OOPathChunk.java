@@ -19,6 +19,7 @@ package org.mvel3.parser.ast.expr;
 
 import java.util.List;
 import com.github.javaparser.TokenRange;
+import com.github.javaparser.ast.AllFieldsConstructor;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.visitor.GenericVisitor;
@@ -28,15 +29,20 @@ import org.mvel3.parser.ast.visitor.DrlVoidVisitor;
 
 public class OOPathChunk extends Expression {
 
-    private final SimpleName field;
+    private SimpleName field;
 
-    private final SimpleName inlineCast;
+    private SimpleName inlineCast;
 
-    private final List<DrlxExpression> condition;
+    private List<DrlxExpression> condition;
 
     private boolean singleValue;
 
     private boolean passive;
+
+    @AllFieldsConstructor
+    public OOPathChunk(SimpleName field, SimpleName inlineCast, List<DrlxExpression> condition) {
+        this(null, field, inlineCast, condition);
+    }
 
     public OOPathChunk(TokenRange range, SimpleName field, SimpleName inlineCast, List<DrlxExpression> condition) {
         super(range);

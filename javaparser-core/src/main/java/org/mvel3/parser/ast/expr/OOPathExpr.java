@@ -18,6 +18,7 @@
 package org.mvel3.parser.ast.expr;
 
 import com.github.javaparser.TokenRange;
+import com.github.javaparser.ast.AllFieldsConstructor;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.visitor.GenericVisitor;
@@ -27,7 +28,12 @@ import org.mvel3.parser.ast.visitor.DrlVoidVisitor;
 
 public class OOPathExpr extends Expression {
 
-    private final NodeList<OOPathChunk> chunks;
+    private NodeList<OOPathChunk> chunks;
+
+    @AllFieldsConstructor
+    public OOPathExpr(NodeList<OOPathChunk> chunks) {
+        this(null, chunks);
+    }
 
     public OOPathExpr(TokenRange range, NodeList<OOPathChunk> chunks) {
         super(range);

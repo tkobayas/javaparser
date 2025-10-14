@@ -340,6 +340,10 @@ public final class JavaParserMetaModel {
         modifyStatementMetaModel.getConstructorParameters().add(abstractContextStatementMetaModel.expressionsPropertyMetaModel);
         withStatementMetaModel.getConstructorParameters().add(abstractContextStatementMetaModel.targetPropertyMetaModel);
         withStatementMetaModel.getConstructorParameters().add(abstractContextStatementMetaModel.expressionsPropertyMetaModel);
+        oOPathChunkMetaModel.getConstructorParameters().add(oOPathChunkMetaModel.fieldPropertyMetaModel);
+        oOPathChunkMetaModel.getConstructorParameters().add(oOPathChunkMetaModel.inlineCastPropertyMetaModel);
+        oOPathChunkMetaModel.getConstructorParameters().add(oOPathChunkMetaModel.conditionPropertyMetaModel);
+        oOPathExprMetaModel.getConstructorParameters().add(oOPathExprMetaModel.chunksPropertyMetaModel);
     }
 
     public static List<BaseNodeMetaModel> getNodeMetaModels() {
@@ -439,6 +443,8 @@ public final class JavaParserMetaModel {
         nodeMetaModels.add(nullLiteralExprMetaModel);
         nodeMetaModels.add(nullSafeFieldAccessExprMetaModel);
         nodeMetaModels.add(nullSafeMethodCallExprMetaModel);
+        nodeMetaModels.add(oOPathChunkMetaModel);
+        nodeMetaModels.add(oOPathExprMetaModel);
         nodeMetaModels.add(objectCreationExprMetaModel);
         nodeMetaModels.add(packageDeclarationMetaModel);
         nodeMetaModels.add(parameterMetaModel);
@@ -1006,6 +1012,18 @@ public final class JavaParserMetaModel {
         abstractContextStatementMetaModel.getDeclaredPropertyMetaModels().add(abstractContextStatementMetaModel.expressionsPropertyMetaModel);
         abstractContextStatementMetaModel.targetPropertyMetaModel = new PropertyMetaModel(abstractContextStatementMetaModel, "target", com.github.javaparser.ast.expr.Expression.class, Optional.of(expressionMetaModel), false, false, false, false);
         abstractContextStatementMetaModel.getDeclaredPropertyMetaModels().add(abstractContextStatementMetaModel.targetPropertyMetaModel);
+        oOPathChunkMetaModel.conditionPropertyMetaModel = new PropertyMetaModel(oOPathChunkMetaModel, "condition", org.mvel3.parser.ast.expr.DrlxExpression.class, Optional.of(drlxExpressionMetaModel), false, false, false, false);
+        oOPathChunkMetaModel.getDeclaredPropertyMetaModels().add(oOPathChunkMetaModel.conditionPropertyMetaModel);
+        oOPathChunkMetaModel.fieldPropertyMetaModel = new PropertyMetaModel(oOPathChunkMetaModel, "field", com.github.javaparser.ast.expr.SimpleName.class, Optional.of(simpleNameMetaModel), false, false, false, false);
+        oOPathChunkMetaModel.getDeclaredPropertyMetaModels().add(oOPathChunkMetaModel.fieldPropertyMetaModel);
+        oOPathChunkMetaModel.inlineCastPropertyMetaModel = new PropertyMetaModel(oOPathChunkMetaModel, "inlineCast", com.github.javaparser.ast.expr.SimpleName.class, Optional.of(simpleNameMetaModel), false, false, false, false);
+        oOPathChunkMetaModel.getDeclaredPropertyMetaModels().add(oOPathChunkMetaModel.inlineCastPropertyMetaModel);
+        oOPathChunkMetaModel.passivePropertyMetaModel = new PropertyMetaModel(oOPathChunkMetaModel, "passive", boolean.class, Optional.empty(), false, false, false, false);
+        oOPathChunkMetaModel.getDeclaredPropertyMetaModels().add(oOPathChunkMetaModel.passivePropertyMetaModel);
+        oOPathChunkMetaModel.singleValuePropertyMetaModel = new PropertyMetaModel(oOPathChunkMetaModel, "singleValue", boolean.class, Optional.empty(), false, false, false, false);
+        oOPathChunkMetaModel.getDeclaredPropertyMetaModels().add(oOPathChunkMetaModel.singleValuePropertyMetaModel);
+        oOPathExprMetaModel.chunksPropertyMetaModel = new PropertyMetaModel(oOPathExprMetaModel, "chunks", org.mvel3.parser.ast.expr.OOPathChunk.class, Optional.of(oOPathChunkMetaModel), false, false, true, false);
+        oOPathExprMetaModel.getDeclaredPropertyMetaModels().add(oOPathExprMetaModel.chunksPropertyMetaModel);
     }
 
     public static Optional<BaseNodeMetaModel> getNodeMetaModel(Class<?> c) {
@@ -1418,6 +1436,12 @@ public final class JavaParserMetaModel {
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final WithStatementMetaModel withStatementMetaModel = new WithStatementMetaModel(Optional.of(abstractContextStatementMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final OOPathChunkMetaModel oOPathChunkMetaModel = new OOPathChunkMetaModel(Optional.of(expressionMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final OOPathExprMetaModel oOPathExprMetaModel = new OOPathExprMetaModel(Optional.of(expressionMetaModel));
 
     static {
         initializeNodeMetaModels();
