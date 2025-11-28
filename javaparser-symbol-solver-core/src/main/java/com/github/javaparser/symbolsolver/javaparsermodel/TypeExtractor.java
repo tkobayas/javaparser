@@ -263,7 +263,11 @@ public class TypeExtractor extends DefaultVisitorAdapter {
 
     @Override
     public ResolvedType visit(NullSafeFieldAccessExpr node, Boolean solveLambdas) {
-        return node.getScope().accept(this, solveLambdas);
+        Optional<Value> value = createSolver().solveSymbolAsValue(node.getName().getId(), node.getScope());
+        if (value.isPresent()) {
+            return value.get().getType();
+        }
+        throw new UnsolvedSymbolException(node.getName().getId());
     }
 
     @Override
